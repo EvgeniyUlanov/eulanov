@@ -1,11 +1,11 @@
 <project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ru.job4j</groupId>
-	<artifactId>java-a-to-z</artifactId>
+	<artifactId>eulanov</artifactId>
 	<packaging>pom</packaging>
 	<version>2.0</version>
 
-	<name>java-a-to-z</name>
+	<name>eulanov</name>
 	<url>http://job4j.ru/</url>
 	
 

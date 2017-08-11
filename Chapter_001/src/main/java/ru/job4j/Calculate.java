@@ -1,18 +1,18 @@
 package ru.job4j;
 
 /**
- *Class Calculate решение задачи части 001 урок1, создание Hello World/
- *@autor Evgeniy Ulanov
- *@since 11.08.2017
-*/
-
-
+ * Calculate.
+ *
+ * @author Evgeniy Ulanov (komrad1812@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class Calculate {
-
     /**
-     *метод main выводит в консоль строку "Hello Wolrd"
-    */
-    public static void main (String[] args){
-    	System.out.println("Hello World");
+     * Main.
+     * @param args - args.
+     */
+    public static void main(String[] args) {
+        System.out.println("Hello World");
     }
 }

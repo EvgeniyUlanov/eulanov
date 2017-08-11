@@ -1,8 +1,8 @@
 /**
-*Package for calculate Test
-*
-*@autor Evgeiniy Ulanov
-*@version $ld$
-*@since 0.1
-*/
+ * //My comments.
+ *
+ * @author Evgeiniy Ulanov
+ * @version $Id$
+ * @since 0.1
+ */
 package ru.job4j;

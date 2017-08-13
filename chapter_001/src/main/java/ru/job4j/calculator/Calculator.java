@@ -1,30 +1,71 @@
 package ru.job4j.calculator;
 
+/**
+ * Calculator without main.
+ *
+ * @author Evgeniy Ulanov (komrad1812@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
+
 public class Calculator {
 
-	double result;
+	/**
+	 * result - result.
+	 */
 
-	public void add (double first, double second) {
+    private double result;
+
+    /**
+	 * metod add.
+	 * @param first - first.
+	 * @param second - second.
+	 */
+
+	public void add(double first, double second) {
 		this.result = first + second;
 	}
 
-	public void substruct (double first, double second) {
+	/**
+	 * metod substruct.
+	 * @param first - first.
+	 * @param second - second.
+	 */
+
+	public void substruct(double first, double second) {
 		this.result = first - second;
 	}
 
-	public void div (double first, double second) {
+	/**
+	 * metod div.
+	 * @param first - first.
+	 * @param second - second.
+	 */
+
+	public void div(double first, double second) {
 		if (second != 0) {
-		this.result = first / second;
+			this.result = first / second;
 		} else {
-		  this.result = 0;
-		  }
+			this.result = 0;
+		}
 	}
 
-	public void multiple (double first, double second) {
+	/**
+	 * metod multiple.
+	 * @param first - first.
+	 * @param second - second.
+	 */
+
+	public void multiple(double first, double second) {
 		this.result = first * second;
 	}
-	
-	public double getResult () {
+
+	/**
+	 * metod getResult.
+	 * @return result.
+	 */
+
+	public double getResult() {
 		return this.result;
 	}
 }

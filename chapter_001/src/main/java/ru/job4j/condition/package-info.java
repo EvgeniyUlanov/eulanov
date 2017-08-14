@@ -1,5 +1,5 @@
 /**
- * //Package for maximum task.
+ * //Package for condition task.
  *
  * @autor Evgeiniy Ulanov
  * @version $Id$

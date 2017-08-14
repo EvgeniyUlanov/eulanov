@@ -21,8 +21,8 @@ public class MaxTest {
     @Test
     public void showMaxValue() {
 	Max maxvalue = new Max();
-	int result = maxvalue.max(5, 6);
-	int expected = 6;
+	int result = maxvalue.maxOfThree(5, 6, 8);
+	int expected = 8;
 	assertThat(result, is(expected));
 
     }

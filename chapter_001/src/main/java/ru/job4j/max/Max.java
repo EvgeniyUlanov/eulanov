@@ -21,5 +21,18 @@ public class Max {
         return first > second ? first : second;
     }
 
+    /**
+     * metod max reterns max value of three.
+     * @param first - first.
+     * @param second - second.
+     * @param third - third.
+     * @return max value.
+     */
+
+    public int maxOfThree(int first, int second, int third) {
+	int value = max(first, second);
+	value = max(value, third);
+	return value;
+    }
 
 }

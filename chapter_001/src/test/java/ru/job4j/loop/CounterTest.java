@@ -1,4 +1,4 @@
-package ru.job4j.max;
+package ru.job4j.loop;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
@@ -12,18 +12,17 @@ import static org.junit.Assert.assertThat;
  * @since 0.1
  */
 
-public class MaxTest {
+public class CounterTest {
 
     /**
-     * Test max.
+     * Test add.
      */
 
     @Test
-    public void showMaxValue() {
-		Max maxvalue = new Max();
-		int result = maxvalue.maxOfThree(5, 6, 8);
-		int expected = 8;
+    public void whenFromOneToTenThenSumThirty() {
+		Counter counter = new Counter();
+		int result = counter.add(1, 10);
+		int expected = 30;
 		assertThat(result, is(expected));
-
     }
 }

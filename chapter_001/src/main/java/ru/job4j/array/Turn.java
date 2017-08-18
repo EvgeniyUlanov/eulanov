@@ -11,11 +11,13 @@ package ru.job4j.array;
  public class Turn {
 
 	/**
-	 * metos back return flip array.
+	 * metod back return flip array.
+	 *
 	 * @param array - first array.
 	 * @return flip array.
 	 */
 	public int[] back(int[] array) {
+
 		if (array == null) {
 			return null;
 		}

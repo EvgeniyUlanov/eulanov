@@ -19,8 +19,14 @@ public class ConteinString {
 	 */
 
 	public boolean contein(String origin, String sub) {
-	char[] string = new char[origin.length()];
+		char[] string = new char[origin.length()];
 		char[] sequence = new char[sub.length()];
+		if (sub.length() == 0) {
+			return false;
+		}
+		if (sub.length() > origin.length()) {
+			return false;
+		}
 		for (int i = 0; i < origin.length(); i++) {
 			string[i] = origin.charAt(i);
 		}
@@ -34,13 +40,10 @@ public class ConteinString {
 					cont = true;
 				} else {
 					cont = false;
+					break;
 				}
-			}
-			if (cont) {
-				return cont;
 			}
 		}
 		return cont;
 	}
-
 }

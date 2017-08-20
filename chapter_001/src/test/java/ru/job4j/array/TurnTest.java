@@ -36,7 +36,7 @@ public class TurnTest {
 		Turn array = new Turn();
 		int[] startArray = null;
 		int[] result = array.back(startArray);
-		int[] expected = null;
+		int[] expected = new int[0];
 		assertThat(result, is(expected));
 	}
 

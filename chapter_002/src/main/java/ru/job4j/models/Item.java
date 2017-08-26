@@ -59,6 +59,14 @@ public class Item {
 	}
 
 	/**
+	 * setName.
+	 * @param name - new name.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
 	 * getDescription.
 	 * @return description of Item.
 	 */
@@ -67,11 +75,27 @@ public class Item {
 	}
 
 	/**
+	 * setDescription.
+	 * @param description - new description.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
 	 * getCreate.
 	 * @return create.
 	 */
 	public long getCreate() {
 		return this.create;
+	}
+
+	/**
+	 * setCreate.
+	 * @param create - new create.
+	 */
+	public void setCreate(String create) {
+		this.create = Long.parseLong(create);
 	}
 }
 

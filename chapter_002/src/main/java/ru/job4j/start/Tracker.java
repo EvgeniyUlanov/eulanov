@@ -35,7 +35,7 @@ public class Tracker {
 	 * @param item - Item for change.
 	 */
 	public void update(Item item) {
-		if (this.position != 0) {
+		if (isNotEmpty()) {
 			for (int i = 0; i < this.position; i++) {
 				if (this.items[i].getId().equals(item.getId())) {
 					this.items[i] = item;
@@ -50,14 +50,14 @@ public class Tracker {
 	 * @param item - item to delete.
 	 */
 	public void delete(Item item) {
-		if (position != 0) {
+		if (isNotEmpty()) {
 			for (int i = 0; i < this.position; i++) {
 				if (this.items[i].getId().equals(item.getId())) {
 					this.items[i] = this.items[this.position - 1];
 					break;
 				}
 			}
-			this.items = Arrays.copyOf(this.items, --position);
+			this.items = Arrays.copyOf(this.items, --this.position);
 		}
 	}
 
@@ -66,8 +66,7 @@ public class Tracker {
 	 * @return Item[].
 	 */
 	public Item[] findAll() {
-		if (this.position != 0) {
-			System.out.println(position);
+		if (isNotEmpty()) {
 			Item[] result = new Item[this.position];
 			for (int index = 0; index < this.position; index++) {
 				result[index] = this.items[index];
@@ -100,12 +99,14 @@ public class Tracker {
 	 * @return Item.
 	 */
 	public Item findById(String id) {
-		for (int i = 0; i < position; i++) {
-			if (this.items[i].getId().equals(id)) {
-				return this.items[i];
+		if (isNotEmpty()) {
+			for (int i = 0; i < position; i++) {
+				if (this.items[i].getId().equals(id)) {
+					return this.items[i];
+				}
 			}
 		}
-		return new Item();
+		return new Item("Item with this Id is not exist", "", 0L);
 	}
 
 	/**
@@ -114,5 +115,13 @@ public class Tracker {
 	 */
 	public String generateId() {
 		return String.valueOf(System.currentTimeMillis() + RN.nextInt());
+	}
+
+	/**
+	 * metod isEmpty.
+	 * @return true if items list is empty.
+	 */
+	public boolean isNotEmpty() {
+		return this.position > 0;
 	}
 }

@@ -24,10 +24,12 @@ public class Tracker {
 	/**
 	 * metod add Item.
 	 * @param item - item for add.
+	 * @return item - item.
 	 */
-	public void add(Item item) {
+	public Item add(Item item) {
 		item.setId(generateId());
 		this.items[this.position++] = item;
+		return item;
 	}
 
 	/**
@@ -73,7 +75,7 @@ public class Tracker {
 			}
 			return result;
 		} else {
-			return new Item[0];
+			return new Item[1];
 		}
 	}
 

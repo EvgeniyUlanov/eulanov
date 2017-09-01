@@ -12,6 +12,8 @@ public class StartUI {
 	private Input input;
 	/** tracker. */
 	private Tracker tracker;
+	/** range of valide enter. */
+	private int[] range;
 
 	/**
 	 * constructor.
@@ -31,15 +33,19 @@ public class StartUI {
 		System.out.println("Tracker - programm for adding and finding task.");
 		MenuTracker menu = new MenuTracker(this.input, this.tracker);
 		menu.fillActions();
-		String key = "";
+		this.range = new int[menu.getCount() + 1];
+		for (int i = 0; i <= menu.getCount(); i++) {
+			range[i] = i + 1;
+		}
+		int key = 0;
 		do {
 			System.out.println("");
 			menu.show();
 			System.out.println("");
-			key = input.ask("Enter your choice: ");
+			key = input.ask("Enter your choice: ", this.range);
 			System.out.println("");
 			menu.select(key);
-		} while (!key.equals("7"));
+		} while (key != 7);
 		System.out.println("Programm out. Good Bay.");
 	}
 
@@ -48,9 +54,9 @@ public class StartUI {
 	 * @param args - args.
 	 */
 	public static void main(String[] args) {
-		//Tracker tracker = new Tracker();
-		//Input input = new ConsoleInput();
-		//new StartUI(input, tracker).start();
+		Tracker tracker = new Tracker();
+		Input input = new ValidateInput();
+		new StartUI(input, tracker).start();
 	}
 
 }

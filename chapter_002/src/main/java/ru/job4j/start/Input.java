@@ -9,9 +9,17 @@ package ru.job4j.start;
 
 public interface Input {
 	/**
-	 * metod ask.
+	 * metod ask return string.
 	 * @param question - question.
-	 * @return answer.
+	 * @return answer - string.
 	 */
 	String ask(String question);
+
+	/**
+	 * metod ask return int.
+	 * @param question - question.
+	 * @param range - range of valide answers.
+	 * @return answer - int.
+	 */
+	int ask(String question, int[] range);
 }

@@ -20,6 +20,9 @@ public class MenuTracker {
 	/** userActions. */
 	private UserAction[] actions = new UserAction[6];
 
+	/** count - count of UserActions. */
+	private int count = 0;
+
 	/**
 	 * constructor.
 	 * @param input - input.
@@ -31,15 +34,23 @@ public class MenuTracker {
 	}
 
 	/**
+	 * metod getCount.
+	 * @return count.
+	 */
+	public int getCount() {
+		return this.count;
+	}
+
+	/**
 	 * metod fill Actions.
 	 */
 	public void fillActions() {
-		this.actions[0] = this.new AddItem();
-		this.actions[1] = new MenuTracker.ShowAll();
-		this.actions[2] = this.new EditItem();
-		this.actions[3] = this.new RemoveItem();
-		this.actions[4] = this.new FindItemById();
-		this.actions[5] = new FindItemByName();
+		this.actions[this.count++] = this.new AddItem();
+		this.actions[this.count++] = new MenuTracker.ShowAll();
+		this.actions[this.count++] = this.new EditItem();
+		this.actions[this.count++] = this.new RemoveItem();
+		this.actions[this.count++] = this.new FindItemById();
+		this.actions[this.count++] = new FindItemByName();
 	}
 
 	/**
@@ -56,9 +67,9 @@ public class MenuTracker {
 	 * metod select user choice.
 	 * @param key - user select.
 	 */
-	public void select(String key) {
-		if (Integer.valueOf(key) < this.actions.length) {
-			this.actions[Integer.valueOf(key) - 1].execute(this.input, this.tracker);
+	public void select(int key) {
+		if (key - 1 < this.actions.length) {
+			this.actions[key - 1].execute(this.input, this.tracker);
 		}
 	}
 
@@ -70,8 +81,8 @@ public class MenuTracker {
 		 * metod key.
 		 * @return key.
 		 */
-		public String key() {
-			return "1";
+		public int key() {
+			return 1;
 		}
 
 		/**
@@ -101,8 +112,8 @@ public class MenuTracker {
 		 * metod key.
 		 * @return key.
 		 */
-		public String key() {
-			return "2";
+		public int key() {
+			return 2;
 		}
 
 		/**
@@ -138,8 +149,8 @@ public class MenuTracker {
 		 * metod key.
 		 * @return key.
 		 */
-		public String key() {
-			return "3";
+		public int key() {
+			return 3;
 		}
 
 		/**
@@ -182,8 +193,8 @@ public class MenuTracker {
 		 * metod key.
 		 * @return key.
 		 */
-		public String key() {
-			return "4";
+		public int key() {
+			return 4;
 		}
 
 		/**
@@ -223,8 +234,8 @@ public class MenuTracker {
 		 * metod key.
 		 * @return key.
 		 */
-		public String key() {
-			return "5";
+		public int key() {
+			return 5;
 		}
 
 		/**
@@ -260,8 +271,8 @@ class FindItemByName implements UserAction {
 	 * metod key.
 	 * @return key.
 	 */
-	public String key() {
-		return "6";
+	public int key() {
+		return 6;
 	}
 
 	/**

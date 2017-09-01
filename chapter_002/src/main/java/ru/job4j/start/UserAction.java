@@ -14,7 +14,7 @@ public interface UserAction {
 	 * metod key.
 	 * @return string.
 	 */
-	String key();
+	int key();
 
 	/**
 	 * metod execute.

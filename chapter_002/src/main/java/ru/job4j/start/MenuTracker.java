@@ -45,12 +45,12 @@ public class MenuTracker {
 	 * metod fill Actions.
 	 */
 	public void fillActions() {
-		this.actions[this.count++] = this.new AddItem();
-		this.actions[this.count++] = new MenuTracker.ShowAll();
-		this.actions[this.count++] = this.new EditItem();
-		this.actions[this.count++] = this.new RemoveItem();
-		this.actions[this.count++] = this.new FindItemById();
-		this.actions[this.count++] = new FindItemByName();
+		this.actions[this.count++] = this.new AddItem("Add new Item.", 1);
+		this.actions[this.count++] = new MenuTracker.ShowAll("Show All Items", 2);
+		this.actions[this.count++] = this.new EditItem("Edit Item.", 3);
+		this.actions[this.count++] = this.new RemoveItem("Remove Item.", 4);
+		this.actions[this.count++] = this.new FindItemById("Find Item by Id.", 5);
+		this.actions[this.count++] = new FindItemByName("Find Item by Name.", 6);
 	}
 
 	/**
@@ -76,13 +76,14 @@ public class MenuTracker {
 	/**
 	 * class AddItem.
 	 */
-	private class AddItem implements UserAction {
+	private class AddItem extends BaseAction {
 		/**
-		 * metod key.
-		 * @return key.
+		 * constructor.
+		 * @param name - name.
+		 * @param key - key.
 		 */
-		public int key() {
-			return 1;
+		AddItem(String name, int key) {
+			super(name, key);
 		}
 
 		/**
@@ -94,26 +95,19 @@ public class MenuTracker {
 			Item item = new Item(input.ask("enter name: "), input.ask("enter discription: "), 0L);
 			tracker.add(item);
 		}
-
-		/**
-		 * metod info.
-		 * @return string.
-		 */
-		public String info() {
-			return String.format("%s. %s ", this.key(), "Add new Item.");
-		}
 	}
 
 	/**
 	 * class ShowAll.
 	 */
-	private static class ShowAll implements UserAction {
+	private static class ShowAll extends BaseAction {
 		/**
-		 * metod key.
-		 * @return key.
+		 * constructor.
+		 * @param name - name.
+		 * @param key - key..
 		 */
-		public int key() {
-			return 2;
+		ShowAll(String name, int key) {
+			super(name, key);
 		}
 
 		/**
@@ -131,26 +125,19 @@ public class MenuTracker {
 				System.out.println("The list is empty.");
 			}
 		}
-
-		/**
-		 * metod info.
-		 * @return string.
-		 */
-		public String info() {
-			return String.format("%s. %s ", this.key(), "Show all Items.");
-		}
 	}
 
 	/**
 	 * class EditItem.
 	 */
-	private class EditItem implements UserAction {
+	private class EditItem extends BaseAction {
 		/**
-		 * metod key.
-		 * @return key.
+		 * constructor.
+		 * @param name - name.
+		 * @param key - key..
 		 */
-		public int key() {
-			return 3;
+		EditItem(String name, int key) {
+			super(name, key);
 		}
 
 		/**
@@ -166,7 +153,17 @@ public class MenuTracker {
 				if (item.getId() != null) {
 					item.setName(input.ask("enter new name: "));
 					item.setDescription(input.ask("enter new description: "));
-					item.setCreate(input.ask("enter new create (must be number): "));
+					// Проверка что введено число.
+					boolean invalide = true;
+					do {
+						try {
+							item.setCreate(input.ask("enter new create (must be number): "));
+							invalide = false;
+						} catch (NumberFormatException nfe) {
+							System.out.println("It must be natural value.");
+						}
+					} while (invalide);
+					// если все нормально создаем Item.
 					tracker.update(item);
 				} else {
 					System.out.println("Item with this Id is not exist");
@@ -175,26 +172,19 @@ public class MenuTracker {
 				System.out.println("The list is empty.");
 			}
 		}
-
-		/**
-		 * metod info.
-		 * @return string.
-		 */
-		public String info() {
-			return String.format("%s. %s ", this.key(), "Edit Item.");
-		}
 	}
 
 	/**
 	 * class RemoveItem.
 	 */
-	private class RemoveItem implements UserAction {
+	private class RemoveItem extends BaseAction {
 		/**
-		 * metod key.
-		 * @return key.
+		 * constructor.
+		 * @param name - name.
+		 * @param key - key..
 		 */
-		public int key() {
-			return 4;
+		RemoveItem(String name, int key) {
+			super(name, key);
 		}
 
 		/**
@@ -216,26 +206,19 @@ public class MenuTracker {
 				System.out.println("The list is empty.");
 			}
 		}
-
-		/**
-		 * metod info.
-		 * @return string.
-		 */
-		public String info() {
-			return String.format("%s. %s ", this.key(), "Remove Item.");
-		}
 	}
 
 	/**
 	 * class FindItemById.
 	 */
-	private class FindItemById implements UserAction {
+	private class FindItemById extends BaseAction {
 		/**
-		 * metod key.
-		 * @return key.
+		 * constructor.
+		 * @param name - name.
+		 * @param key - key..
 		 */
-		public int key() {
-			return 5;
+		FindItemById(String name, int key) {
+			super(name, key);
 		}
 
 		/**
@@ -252,27 +235,20 @@ public class MenuTracker {
 				System.out.println("The list is empty.");
 			}
 		}
-
-		/**
-		 * metod info.
-		 * @return string.
-		 */
-		public String info() {
-			return String.format("%s. %s ", this.key(), "Find Item by Id.");
-		}
 	}
 }
 
 /**
  * class FindItemByName.
  */
-class FindItemByName implements UserAction {
+class FindItemByName extends BaseAction {
 	/**
-	 * metod key.
-	 * @return key.
+	 * constructor.
+	 * @param name - name.
+	 * @param key - key..
 	 */
-	public int key() {
-		return 6;
+	FindItemByName(String name, int key) {
+		super(name, key);
 	}
 
 	/**
@@ -295,13 +271,5 @@ class FindItemByName implements UserAction {
 		} else {
 			System.out.println("The list is empty.");
 		}
-	}
-
-	/**
-	 * metod info.
-	 * @return string.
-	 */
-	public String info() {
-		return String.format("%s. %s ", this.key(), "Find Item by Name.");
 	}
 }

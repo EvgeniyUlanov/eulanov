@@ -9,13 +9,6 @@ package ru.job4j.start;
  */
 
 public interface UserAction {
-
-	/**
-	 * metod key.
-	 * @return string.
-	 */
-	int key();
-
 	/**
 	 * metod execute.
 	 * @param input - input.

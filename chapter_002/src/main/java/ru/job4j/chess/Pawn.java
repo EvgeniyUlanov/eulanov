@@ -86,7 +86,7 @@ public class Pawn extends Figure {
 					return true;
 				}
 			} else if (dest.getX() == this.getPosition().getX()
-				    && dest.getY() - this.getPosition().getY() <= 2) {
+				    && dest.getY() - this.getPosition().getY() <= 2 && dest.isEmpty()) {
 				this.setMoveBehavior(new MoveStraight(this.getPosition()));
 				count++;
 				return true;
@@ -99,7 +99,7 @@ public class Pawn extends Figure {
 					return true;
 				}
 			} else if (dest.getX() == this.getPosition().getX()
-				    && dest.getY() - this.getPosition().getY() == 1) {
+				    && dest.getY() - this.getPosition().getY() == 1 && dest.isEmpty()) {
 				this.setMoveBehavior(new MoveStraight(this.getPosition()));
 				return true;
 			}

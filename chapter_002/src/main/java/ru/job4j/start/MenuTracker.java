@@ -164,7 +164,7 @@ public class MenuTracker {
 						}
 					} while (invalide);
 					// если все нормально создаем Item.
-					tracker.update(item);
+					//tracker.update(item);
 				} else {
 					System.out.println("Item with this Id is not exist");
 				}

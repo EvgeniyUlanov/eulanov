@@ -19,15 +19,29 @@ public class SlonTest {
 	 */
 	@Test (expected = ImpossibleMoveException.class)
 	public void whenSlonMovedToWrongDestThanInvalideMoveException() {
-		Board board = new Board();
+		Cell[][] cells = new Cell[8][8];
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				cells[x][y] = new Cell(x, y);
+			}
+		}
+		Figure slon = new Slon(cells[2][0]);
+		Board board = new Board(cells);
 		board.move(board.getCell(2, 0), board.getCell(0, 0));
 	}
 
 	/**
 	 * test for right move.
 	 */
-	public void whenSlonMOvedRightDestThanFigureMoved() {
-		Board board = new Board();
+	public void whenSlonMovedRightDestThanFigureMoved() {
+		Cell[][] cells = new Cell[8][8];
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				cells[x][y] = new Cell(x, y);
+			}
+		}
+		Figure slon = new Slon(cells[2][0]);
+		Board board = new Board(cells);
 		assertThat(board.getCell(2, 0).isEmpty(), is(false));
 		assertThat(board.getCell(0, 2).isEmpty(), is(true));
 		board.move(board.getCell(2, 0), board.getCell(0, 2));
@@ -39,8 +53,15 @@ public class SlonTest {
 	 */
 	@Test (expected = FigureNotFoundException.class)
 	public void whenSourseCellIsEmptyThanFigureNotFoundException() {
-		Board board = new Board();
-		board.move(board.getCell(0, 0), board.getCell(2, 0));
+		Cell[][] cells = new Cell[8][8];
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				cells[x][y] = new Cell(x, y);
+			}
+		}
+		Figure slon = new Slon(cells[2][0]);
+		Board board = new Board(cells);
+		board.move(board.getCell(5, 5), board.getCell(4, 4));
 	}
 
 	/**
@@ -48,7 +69,18 @@ public class SlonTest {
 	 */
 	@Test (expected = OccupiedWayException.class)
 	public void whenWayIsOccupiedThanOccupiedWayException() {
-		Board board = new Board();
+		Cell[][] cells = new Cell[8][8];
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				cells[x][y] = new Cell(x, y);
+			}
+		}
+		Board board = new Board(cells);
+		Player player = new Player(1);
+		Figure slon = new Slon(cells[2][0]);
+		slon.setPlayer(player);
+		Figure slon2 = new Slon(cells[3][1]);
+		slon2.setPlayer(player);
 		board.move(board.getCell(2, 0), board.getCell(4, 2));
 	}
 }

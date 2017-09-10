@@ -95,9 +95,13 @@ public class Cell {
 	 */
 	public String show() {
 		if (this.empty) {
-			return "0";
+			if (Math.abs(this.x - this.y) % 2 == 0) {
+				return " +";
+			} else {
+				return "  ";
+			}
 		} else {
-			return this.figure.show();
+			return (this.figure.getPlayer().getColor() + this.figure.show());
 		}
 	}
 }

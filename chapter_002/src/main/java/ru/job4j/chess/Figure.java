@@ -11,6 +11,8 @@ abstract class Figure {
 	private Cell position;
 	/** movebehavior.*/
 	private MoveBehavior moveBehavior;
+	/** player number.*/
+	private Player player;
 
 	/**
 	 * constructor.
@@ -60,15 +62,24 @@ abstract class Figure {
 	 * @return boolean.
 	 */
 	public boolean clearPath(Cell dest, Cell[][] cells) {
+		if (this.position.equalsCell(dest)) {
+			throw new ImpossibleMoveException("Wrog turn");
+		}
 		boolean clear = true;
 		if (this.valideMove(dest)) {
 			Cell[] path = this.moveBehavior.way(dest);
-			for (Cell cell : path) {
-				cell = cells[cell.getX()][cell.getY()];
-				if (!cell.isEmpty()) {
+			for (int i = 0; i < path.length - 1; i++) {
+				path[i] = cells[path[i].getX()][path[i].getY()];
+				if (!path[i].isEmpty()) {
 					clear = false;
-					break;
 				}
+			}
+			if (clear && !dest.isEmpty() && dest.getFigure().getPlayer() != this.getPlayer()) {
+				clear = true;
+			} else if (clear && dest.isEmpty()) {
+				clear = true;
+			} else {
+				clear = false;
 			}
 		} else {
 			throw new ImpossibleMoveException("Wrog turn");
@@ -81,4 +92,20 @@ abstract class Figure {
 	 * @return string.
 	 */
 	abstract String show();
+
+	/**
+	 * metod return player.
+	 * @return player.
+	 */
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	/**
+	 * metod setPlayer.
+	 * @param player - player;
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 }

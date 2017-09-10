@@ -14,13 +14,12 @@ public class Chess {
 	 */
 	public static void main(String[] args) {
 		Input input = new Input();
-		Board board = new Board();
 		System.out.println("Chess");
-		Game game = new Game(input, board);
+		Game game = new Game(input);
 		boolean end = false;
 		do {
 			game.start();
-			if (input.ask("for close choose 1") == 1) {
+			if (input.ask("for surrender choose 1") == 1) {
 				end = true;
 			}
 		} while (!end);

@@ -9,25 +9,13 @@ package ru.job4j.chess;
 public class Board {
 	/** massive for keep cells. */
 	private Cell[][] cells;
-	/** massive for keep Figures. */
-	private Figure[] figures;
 
 	/**
 	 * constructor for class Board.
-	 * create massive of cells and figures.
+	 * @param cells - cells.
 	 */
-	public Board() {
-
-		this.cells = new Cell[8][8];
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				cells[x][y] = new Cell(x, y);
-			}
-		}
-		this.figures = new Figure[16];
-		figures[0] = new Slon(cells[2][0]);
-		figures[1] = new Slon(cells[5][0]);
-		figures[2] = new Queen(cells[3][1]);
+	public Board(Cell[][] cells) {
+		this.cells = cells;
 	}
 
 	/**
@@ -36,14 +24,18 @@ public class Board {
 	 */
 	public String showBoard() {
 		System.out.println("");
-		System.out.println("01234567  x/y");
-		System.out.println("||||||||");
+		System.out.println("  0    1    2    3    4    5    6    7    x/y");
+		System.out.println("+----+----+----+----+----+----+----+----+");
 		StringBuilder str = new StringBuilder();
 		for (int i = 0; i < 8; i++) {
+			str.append("|    |    |    |    |    |    |    |    |\n");
 			for (int j = 0; j < 8; j++) {
-				str.append(cells[j][i].show());
+				str.append("| ");
+				str.append(cells[j][i].show() + " ");
 			}
-			str.append(" - " + i + "\n");
+			str.append("| - " + i + "\n");
+			str.append("|    |    |    |    |    |    |    |    |\n");
+			str.append("+----+----+----+----+----+----+----+----+\n");
 		}
 		return str.toString();
 	}

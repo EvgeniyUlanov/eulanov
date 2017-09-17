@@ -25,7 +25,7 @@ public class TimeMesure {
 		Collection<String> treeSetTest = new TreeSet<String>();
 		long time;
 		int elementsToAdd = 999999;
-		int elementsToDelete = 50000;
+		int elementsToDelete = 20000;
 
 		time = tm.timeMesureAdd(arrayListTest, elementsToAdd);
 		System.out.println("ArrayList time add " + elementsToAdd + " elements - " + time + " millisec");

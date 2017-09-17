@@ -37,11 +37,11 @@ public class ConvertList {
 		if (!list.isEmpty()) {
 			Integer[] array = list.toArray(new Integer[list.size()]);
 			int colomn = array.length % rows == 0 ? array.length / rows : array.length / rows + 1;
-			int[][] result = new int[colomn][rows];
+			int[][] result = new int[rows][colomn];
 			int sizeArray = 0;
 			for (int i = 0; i < result.length; i++) {
 				for (int j = 0; j < result[i].length; j++) {
-					if (sizeArray < array.length) {
+					if (sizeArray < array.length && array[sizeArray] != null) {
 						result[i][j] = array[sizeArray];
 					} else {
 						result[i][j] = 0;

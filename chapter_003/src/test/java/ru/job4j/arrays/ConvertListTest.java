@@ -45,4 +45,20 @@ import static org.junit.Assert.assertThat;
 		int[][] expected = {{1, 2, 3}, {4, 5, 6}, {7, 0, 0}};
 		assertThat(result, is(expected));
 	}
+
+	/**
+	 * test convert list to array whith elements contein null.
+	 */
+	@Test
+	public void whenSorseListConteinNullThanReturnArrayHasZeroOnThatIndex() {
+		List<Integer> sourseList = new ArrayList<>();
+		sourseList.add(1);
+		sourseList.add(2);
+		sourseList.add(null);
+		sourseList.add(3);
+		sourseList.add(4);
+		int[][] result = ConvertList.listToArray(sourseList, 2);
+		int[][] expected = {{1, 2, 0}, {3, 4, 0}};
+		assertThat(result, is(expected));
+	}
 }

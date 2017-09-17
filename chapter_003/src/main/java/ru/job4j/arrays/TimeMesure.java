@@ -27,19 +27,12 @@ public class TimeMesure {
 		int elementsToAdd = 999999;
 		int elementsToDelete = 20000;
 
-		time = tm.timeMesureAdd(arrayListTest, elementsToAdd);
-		System.out.println("ArrayList time add " + elementsToAdd + " elements - " + time + " millisec");
-		time = tm.timeMesureAdd(linkedListTest, elementsToAdd);
-		System.out.println("LinkedList time add " + elementsToAdd + " elements - " + time + " millisec");
-		time = tm.timeMesureAdd(linkedListTest, elementsToAdd);
-		System.out.println("TreeSet time add " + elementsToAdd + " elements - " + time + " millisec");
-
-		time = tm.timeMesureDelete(arrayListTest, elementsToDelete);
-		System.out.println("ArrayList time delete " + elementsToDelete + " elements - " + time + " millisec");
-		time = tm.timeMesureDelete(linkedListTest, elementsToDelete);
-		System.out.println("LinkedList time delete " + elementsToDelete + " elements - " + time + " millisec");
-		time = tm.timeMesureDelete(treeSetTest, elementsToDelete);
-		System.out.println("TreeSet time delete " + elementsToDelete + " elements - " + time + " millisec");
+		System.out.println("ArrayList test:");
+		TimeMesure.timeMesureAddDelete(arrayListTest, elementsToAdd, elementsToDelete);
+		System.out.println("LinkedList test:");
+		TimeMesure.timeMesureAddDelete(linkedListTest, elementsToAdd, elementsToDelete);
+		System.out.println("TreeSet test:");
+		TimeMesure.timeMesureAddDelete(treeSetTest, elementsToAdd, elementsToDelete);
 	}
 
 	/**
@@ -47,7 +40,7 @@ public class TimeMesure {
 	 * @param collection - sourse collection.
 	 * @param amount - amount of element.
 	 */
-	public void add(Collection<String> collection, int amount) {
+	public static void add(Collection<String> collection, int amount) {
 		for (int i = 0; i < amount; i++) {
 			collection.add("Hello" + i);
 		}
@@ -58,7 +51,7 @@ public class TimeMesure {
 	 * @param collection - collection.
 	 * @param amount - amount.
 	 */
-	public void delete(Collection<String> collection, int amount) {
+	public static void delete(Collection<String> collection, int amount) {
 		for (int i = 0; i < amount; i++) {
 			collection.remove("Hello" + i);
 		}
@@ -70,9 +63,9 @@ public class TimeMesure {
 	 * @param amount - amount.
 	 * @return long.
 	 */
-	public long timeMesureAdd(Collection<String> collection, int amount) {
+	public static long timeMesureAdd(Collection<String> collection, int amount) {
 		long firstTime = System.currentTimeMillis();
-		this.add(collection, amount);
+		TimeMesure.add(collection, amount);
 		long lastTime = System.currentTimeMillis();
 		return lastTime - firstTime;
 	}
@@ -83,10 +76,35 @@ public class TimeMesure {
 	 * @param amount - amount.
 	 * @return long.
 	 */
-	public long timeMesureDelete(Collection<String> collection, int amount) {
+	public static long timeMesureDelete(Collection<String> collection, int amount) {
 		long firstTime = System.currentTimeMillis();
-		this.delete(collection, amount);
+		TimeMesure.delete(collection, amount);
 		long lastTime = System.currentTimeMillis();
 		return lastTime - firstTime;
+	}
+
+	/**
+	 * metod tests time.
+	 * @param collection - collection.
+	 * @param amountAdd - amount elements to add
+	 * @param amountDelete - amount elements to delete
+	 */
+	public static void timeMesureAddDelete(Collection<String> collection, int amountAdd, int amountDelete) {
+		long resultAdd = 0;
+		long resultDelete = 0;
+		TimeMesure.timeMesureAdd(collection, amountAdd);
+		for (int i = 0; i < 5; i++) {
+			collection.clear();
+			long tmAdd = TimeMesure.timeMesureAdd(collection, amountAdd);
+			long tmDel = TimeMesure.timeMesureDelete(collection, amountDelete);
+			if (i > 0) {
+				resultAdd += tmAdd;
+				resultDelete += tmDel;
+			}
+		}
+		resultAdd /= 4;
+		resultDelete /= 4;
+		System.out.println(String.format("Add %s elements takes %s milsec", amountAdd, resultAdd));
+		System.out.println(String.format("Delete %s elements takes %s milsec", amountDelete, resultDelete));
 	}
 }

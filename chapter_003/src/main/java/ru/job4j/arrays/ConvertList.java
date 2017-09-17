@@ -53,4 +53,22 @@ public class ConvertList {
 		}
 		return new int[0][0];
 	}
+
+	/**
+	 * metod converts list<int[]> to ArrayList<Integer>.
+	 * @param list - list to convert
+	 * @return ArrayList<Integer>
+	 */
+	public static List<Integer> convert(List<int[]> list) {
+		if (!list.isEmpty()) {
+			List<Integer> result = new ArrayList<>();
+			for (int[] array : list) {
+				for (int value : array) {
+					result.add(value);
+				}
+			}
+			return result;
+		}
+		return new ArrayList<Integer>();
+	}
 }

@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * class ConsoleInput.
@@ -29,16 +30,9 @@ public class ConsoleInput implements Input {
 	 * @param range - range of valid answers.
 	 * @return user answer.
 	 */
-	public int ask(String question, int[] range)  {
+	public int ask(String question, ArrayList<Integer> range)  {
 		int key = Integer.valueOf(this.ask(question));
-		boolean contein = false;
-		for (int value : range) {
-			if (value == key) {
-				contein = true;
-				break;
-			}
-		}
-		if (contein) {
+		if (range.contains(key)) {
 			return key;
 		} else {
 			throw new MenuOutException("Invalide menu number");

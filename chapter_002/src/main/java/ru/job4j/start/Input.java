@@ -1,5 +1,7 @@
 package ru.job4j.start;
 
+import java.util.ArrayList;
+
 /**
  * interface Input.
  * @author Evgeniy Ulanov (komrad1812@yandex.ru).
@@ -21,5 +23,5 @@ public interface Input {
 	 * @param range - range of valide answers.
 	 * @return answer - int.
 	 */
-	int ask(String question, int[] range);
+	int ask(String question, ArrayList<Integer> range);
 }

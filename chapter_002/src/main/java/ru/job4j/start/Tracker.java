@@ -1,7 +1,7 @@
 package ru.job4j.start;
 
 import ru.job4j.models.Item;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -15,9 +15,7 @@ import java.util.Random;
 public class Tracker {
 
 	/** Item[]. */
-	private Item[] items = new Item[10];
-	/** position - size of Item[] without null. */
-	private int position = 0;
+	private ArrayList<Item> items = new ArrayList<Item>();
 	/** random for Id. */
 	private static final Random RN = new Random();
 
@@ -28,7 +26,7 @@ public class Tracker {
 	 */
 	public Item add(Item item) {
 		item.setId(generateId());
-		this.items[this.position++] = item;
+		this.items.add(item);
 		return item;
 	}
 
@@ -37,10 +35,10 @@ public class Tracker {
 	 * @param item - Item for change.
 	 */
 	public void update(Item item) {
-		if (isNotEmpty()) {
-			for (int i = 0; i < this.position; i++) {
-				if (this.items[i].getId().equals(item.getId())) {
-					this.items[i] = item;
+		if (!this.items.isEmpty()) {
+			for (int i = 0; i < this.items.size(); i++) {
+				if (this.items.get(i).getId().equals(item.getId())) {
+					this.items.set(i, item);
 					break;
 				}
 			}
@@ -52,14 +50,13 @@ public class Tracker {
 	 * @param item - item to delete.
 	 */
 	public void delete(Item item) {
-		if (isNotEmpty()) {
-			for (int i = 0; i < this.position; i++) {
-				if (this.items[i].getId().equals(item.getId())) {
-					this.items[i] = this.items[this.position - 1];
+		if (!this.items.isEmpty()) {
+			for (int i = 0; i < this.items.size(); i++) {
+				if (this.items.get(i).getId().equals(item.getId())) {
+					this.items.remove(i);
 					break;
 				}
 			}
-			this.items = Arrays.copyOf(this.items, --this.position);
 		}
 	}
 
@@ -67,15 +64,17 @@ public class Tracker {
 	 * metod find all Item.
 	 * @return Item[].
 	 */
-	public Item[] findAll() {
-		if (isNotEmpty()) {
-			Item[] result = new Item[this.position];
-			for (int index = 0; index < this.position; index++) {
-				result[index] = this.items[index];
+	public ArrayList<Item> findAll() {
+		if (!this.items.isEmpty()) {
+			ArrayList<Item> result = new ArrayList<Item>();
+			for (Item item : this.items) {
+				if (item != null) {
+					result.add(item);
+				}
 			}
 			return result;
 		} else {
-			return new Item[1];
+			return new ArrayList<Item>();
 		}
 	}
 
@@ -84,15 +83,17 @@ public class Tracker {
 	 * @param key - key to search.
 	 * @return Item[].
 	 */
-	public Item[] findByName(String key) {
-		Item[] result = new Item[this.position];
-		int count = 0;
-		for (int i = 0; i < position; i++) {
-			if (this.items[i].getName().equals(key)) {
-				result[count++] = this.items[i];
+	public ArrayList<Item> findByName(String key) {
+		if (!this.items.isEmpty()) {
+			ArrayList<Item> result = new ArrayList<Item>();
+			for (Item item : this.items) {
+				if (item.getName().equals(key)) {
+					result.add(item);
+				}
 			}
+			return result;
 		}
-		return Arrays.copyOf(result, count);
+		return new ArrayList<Item>();
 	}
 
 	/**
@@ -101,10 +102,10 @@ public class Tracker {
 	 * @return Item.
 	 */
 	public Item findById(String id) {
-		if (isNotEmpty()) {
-			for (int i = 0; i < position; i++) {
-				if (this.items[i].getId().equals(id)) {
-					return this.items[i];
+		if (!this.items.isEmpty()) {
+			for (Item item : this.items) {
+				if (item.getId().equals(id)) {
+					return item;
 				}
 			}
 		}
@@ -120,10 +121,13 @@ public class Tracker {
 	}
 
 	/**
-	 * metod isEmpty.
-	 * @return true if items list is empty.
+	 * metod isNotEmpty.
+	 * @return true if list is not empty.
 	 */
 	public boolean isNotEmpty() {
-		return this.position > 0;
+		if (items.size() > 0) {
+			return true;
+		}
+		return false;
 	}
 }

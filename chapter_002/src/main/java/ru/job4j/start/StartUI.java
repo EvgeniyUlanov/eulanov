@@ -1,5 +1,7 @@
 package ru.job4j.start;
 
+import java.util.ArrayList;
+
 /**
  * class SartUI.
  * @author Evgeniy Ulanov(komrad1812@yandex.ru).
@@ -13,7 +15,7 @@ public class StartUI {
 	/** tracker. */
 	private Tracker tracker;
 	/** range of valide enter. */
-	private int[] range;
+	private ArrayList<Integer> range;
 
 	/**
 	 * constructor.
@@ -32,10 +34,10 @@ public class StartUI {
 		System.out.println("");
 		System.out.println("Tracker - programm for adding and finding task.");
 		MenuTracker menu = new MenuTracker(this.input, this.tracker);
-		menu.fillActions();
-		this.range = new int[menu.getCount() + 1];
-		for (int i = 0; i <= menu.getCount(); i++) {
-			range[i] = i + 1;
+		this.range = new ArrayList<>();
+		int valueOfActions = menu.fillActions();
+		for (int i = 0; i <= valueOfActions; i++) {
+			range.add(i + 1);
 		}
 		int key = 0;
 		do {

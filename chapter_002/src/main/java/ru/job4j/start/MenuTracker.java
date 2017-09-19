@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import ru.job4j.models.Item;
+import java.util.ArrayList;
 
 /**
  * class MenuTracker.
@@ -18,10 +19,7 @@ public class MenuTracker {
 	private Tracker tracker;
 
 	/** userActions. */
-	private UserAction[] actions = new UserAction[6];
-
-	/** count - count of UserActions. */
-	private int count = 0;
+	private ArrayList<UserAction> actions = new ArrayList<UserAction>();
 
 	/**
 	 * constructor.
@@ -34,23 +32,17 @@ public class MenuTracker {
 	}
 
 	/**
-	 * metod getCount.
-	 * @return count.
-	 */
-	public int getCount() {
-		return this.count;
-	}
-
-	/**
 	 * metod fill Actions.
+	 * @return actions size.
 	 */
-	public void fillActions() {
-		this.actions[this.count++] = this.new AddItem("Add new Item.", 1);
-		this.actions[this.count++] = new MenuTracker.ShowAll("Show All Items", 2);
-		this.actions[this.count++] = this.new EditItem("Edit Item.", 3);
-		this.actions[this.count++] = this.new RemoveItem("Remove Item.", 4);
-		this.actions[this.count++] = this.new FindItemById("Find Item by Id.", 5);
-		this.actions[this.count++] = new FindItemByName("Find Item by Name.", 6);
+	public Integer fillActions() {
+		this.actions.add(this.new AddItem("Add new Item.", 1));
+		this.actions.add(new MenuTracker.ShowAll("Show All Items", 2));
+		this.actions.add(this.new EditItem("Edit Item.", 3));
+		this.actions.add(this.new RemoveItem("Remove Item.", 4));
+		this.actions.add(this.new FindItemById("Find Item by Id.", 5));
+		this.actions.add(new FindItemByName("Find Item by Name.", 6));
+		return actions.size();
 	}
 
 	/**
@@ -68,8 +60,8 @@ public class MenuTracker {
 	 * @param key - user select.
 	 */
 	public void select(int key) {
-		if (key - 1 < this.actions.length) {
-			this.actions[key - 1].execute(this.input, this.tracker);
+		if (key - 1 < this.actions.size()) {
+			this.actions.get(key - 1).execute(this.input, this.tracker);
 		}
 	}
 
@@ -116,9 +108,10 @@ public class MenuTracker {
 		 * @param tracker - tracker.
 		 */
 		public void execute(Input input, Tracker tracker) {
-			if (tracker.isNotEmpty()) {
+			ArrayList<Item> allItems = tracker.findAll();
+			if (!allItems.isEmpty()) {
 				System.out.println("");
-				for (Item item : tracker.findAll()) {
+				for (Item item : allItems) {
 					System.out.println(item.getId() + " " + item.getName() + " - " + item.getDescription());
 				}
 			} else {
@@ -257,19 +250,16 @@ class FindItemByName extends BaseAction {
 	 * @param tracker - tracker.
 	 */
 	public void execute(Input input, Tracker tracker) {
-		if (tracker.isNotEmpty()) {
-			Item[] items = tracker.findByName(input.ask("enter name: "));
-			if (items.length > 0) {
-				for (int i = 0; i < items.length; i++) {
-					System.out.println(items[i].getId() + " "
-									+ items[i].getName() + " - "
-									+ items[i].getDescription());
-				}
-			} else {
-				System.out.println("wrong name.");
+		ArrayList<Item> items = tracker.findByName(input.ask("enter name: "));
+		if (items.size() == 0) {
+			System.out.println("No items found with this name.");
+		} else if (items.size() > 0) {
+			for (int i = 0; i < items.size(); i++) {
+				System.out.println(String.format("%s %s - %s", items.get(i).getId(), items.get(i).getName(),
+								items.get(i).getDescription()));
 			}
 		} else {
-			System.out.println("The list is empty.");
+			System.out.println("wrong name.");
 		}
 	}
 }

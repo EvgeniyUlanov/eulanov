@@ -1,5 +1,7 @@
 package ru.job4j.start;
 
+import java.util.ArrayList;
+
 /**
  * class StubInput for tests.
  * @author Evgeniy Ulanov(komrad1812@yandex.ru).
@@ -9,7 +11,7 @@ package ru.job4j.start;
 
 public class StubInput implements Input {
 	/** answers. */
-	private String[] answers;
+	private ArrayList<String> answers;
 	/** position of answers. */
 	private int position = 0;
 
@@ -17,7 +19,7 @@ public class StubInput implements Input {
 	 * constructor StubInput.
 	 * @param answers - answers.
 	 */
-	public StubInput(String[] answers) {
+	public StubInput(ArrayList<String> answers) {
 		this.answers = answers;
 	}
 
@@ -27,7 +29,7 @@ public class StubInput implements Input {
 	 * @return answer.
 	 */
 	public String ask(String question) {
-		return answers[position++];
+		return answers.get(position++);
 	}
 
 	/**
@@ -36,7 +38,7 @@ public class StubInput implements Input {
 	 * @param range - range of valide answers.
 	 * @return answer.
 	 */
-	public int ask(String question, int[] range) {
-		return Integer.valueOf(answers[position++]);
+	public int ask(String question, ArrayList<Integer> range) {
+		return Integer.valueOf(answers.get(position++));
 	}
 }

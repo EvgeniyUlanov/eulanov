@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import ru.job4j.models.Item;
+import java.util.ArrayList;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -21,9 +22,14 @@ public class StubInputTest {
 	@Test
 	public void whenUserAddItemThenTrackerHasThisItem() {
 		Tracker tracker = new Tracker();
-		Input input = new StubInput(new String[] {"1", "new test", "description", "7"});
+		ArrayList<String> answers = new ArrayList<>();
+		answers.add("1");
+		answers.add("new test");
+		answers.add("description");
+		answers.add("7");
+		Input input = new StubInput(answers);
 		new StartUI(input, tracker).start();
-		assertThat(tracker.findAll()[0].getName(), is("new test"));
+		assertThat(tracker.findAll().get(0).getName(), is("new test"));
 	}
 
 	/**
@@ -32,10 +38,14 @@ public class StubInputTest {
 	@Test
 	public void whenUserDeleteItemThenTrackerIsEmpty() {
 		Tracker tracker = new Tracker();
+		ArrayList<String> answers = new ArrayList<>();
 		Item item = new Item("test1", "disc1", 0L);
 		tracker.add(item);
 		String id = item.getId();
-		Input input = new StubInput(new String[] {"4", id, "7"});
+		answers.add("4");
+		answers.add(id);
+		answers.add("7");
+		Input input = new StubInput(answers);
 		new StartUI(input, tracker).start();
 		assertThat(tracker.isNotEmpty(), is(false));
 	}
@@ -46,11 +56,17 @@ public class StubInputTest {
 	@Test
 	public void whenUserUpdateItemThenTrackerHaveUpdateItem() {
 		Tracker tracker = new Tracker();
+		ArrayList<String> answers = new ArrayList<>();
 		Item item = new Item("test1", "disc1", 0L);
 		tracker.add(item);
 		String id = item.getId();
-		Input input = new StubInput(new String[] {"3", id, "update task",
-												  "update task", "100", "7"});
+		answers.add("3");
+		answers.add(id);
+		answers.add("update task");
+		answers.add("update task");
+		answers.add("100");
+		answers.add("7");
+		Input input = new StubInput(answers);
 		new StartUI(input, tracker).start();
 		assertThat(tracker.findById(id).getName(), is("update task"));
 	}

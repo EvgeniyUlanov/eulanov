@@ -49,11 +49,22 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 *
+	 * metod compareTo.
+	 * @param o - user.
+	 * @return int.
 	 */
 	@Override
 	public int compareTo(User o) {
 		int comAge = this.age.compareTo(o.getAge());
 		return comAge != 0 ? comAge : this.name.compareTo(o.getName());
+	}
+
+	/**
+	 * metod equals.
+	 * @param o - user.
+	 * @return boolean.
+	 */
+	public boolean equal(User o) {
+		return this == o || this.getClass() == o.getClass() && this.name.equals(o.name) && this.age == o.age;
 	}
 }

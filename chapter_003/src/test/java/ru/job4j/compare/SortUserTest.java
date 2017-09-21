@@ -45,4 +45,52 @@ public class SortUserTest {
             assert (expectedTree.contains(user));
         }
     }
+
+    /**
+     * test for metod sort by name length.
+     */
+    @Test
+    public void whenListSortByNameLengthThanTrue() {
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(new User[]{new User("Sergey", 25),
+                                              new User("Ivan", 24),
+                                              new User("Andrey", 30),
+                                              new User("Oleg", 18),
+                                              new User("Ilia", 18)}));
+        List<User> sortedUsers = SortUser.sortNameLength(users);
+        List<User> expected = new ArrayList<>();
+        expected.addAll(Arrays.asList(new User[]{new User("Ivan", 24),
+                                                new User("Oleg", 18),
+                                                new User("Ilia", 18),
+                                                new User("Sergey", 25),
+                                                new User("Andrey", 30)}));
+        for (int i = 0; i < users.size(); i++) {
+            assert (sortedUsers.get(i).equal(expected.get(i)));
+        }
+    }
+
+    /**
+     * test for metod sort by name than by age.
+     */
+    @Test
+    public void whenListSortByNameAndAgeThanTrue() {
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(new User[]{
+                new User("Ivan", 25),
+                new User("Ivan", 24),
+                new User("Andrey", 30),
+                new User("Andrey", 18),
+                new User("Ilia", 18)}));
+        List<User> sortedUsers = SortUser.sortByNameByAge(users);
+        List<User> expected = new ArrayList<>();
+        expected.addAll(Arrays.asList(new User[]{
+                new User("Andrey", 18),
+                new User("Andrey", 30),
+                new User("Ilia", 18),
+                new User("Ivan", 24),
+                new User("Ivan", 25)}));
+        for (int i = 0; i < users.size(); i++) {
+            assert (sortedUsers.get(i).equal(expected.get(i)));
+        }
+    }
 }

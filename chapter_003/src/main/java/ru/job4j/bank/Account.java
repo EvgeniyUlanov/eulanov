@@ -65,7 +65,7 @@ public class Account {
      * @return boolean.
      */
     public boolean addValue(double value) {
-        if (value >= 0) {
+        if (value >= 0 && isOccupied) {
             this.value += value;
             return true;
         }

@@ -2,6 +2,7 @@ package ru.job4j.testtask;
 
 import org.junit.Test;
 import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -24,7 +25,7 @@ public class SortCodeArrayTest {
         incoming.add("K2");
         incoming.add("K2\\SK1\\SSK1");
         incoming.add("K2\\SK1\\SSK2");
-        ArrayList<String> result = SortCodeArray.sortIncrease(incoming);
+        ArrayList<String> result = new ArrayList<String>(SortCodeArray.createSrtSet(incoming));
         ArrayList<String> expected = new ArrayList<>();
         expected.add("K1");
         expected.add("K1\\SK1");
@@ -48,7 +49,7 @@ public class SortCodeArrayTest {
         incoming.add("K2");
         incoming.add("K2\\SK1\\SSK1");
         incoming.add("K2\\SK1\\SSK2");
-        ArrayList<String> result = SortCodeArray.sortDecrease(incoming);
+        ArrayList<String> result = new ArrayList<>(SortCodeArray.sortDecrease(incoming));
         ArrayList<String> expected = new ArrayList<>();
         expected.add("K2");
         expected.add("K2\\SK1");

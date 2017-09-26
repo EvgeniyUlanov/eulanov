@@ -1,7 +1,10 @@
 package ru.job4j.testtask;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TreeSet;
 import java.util.Comparator;
+
 
 /**
  * class SortCodeArray - create dictionary of organization code and sort it.
@@ -15,8 +18,8 @@ public class SortCodeArray {
      * @param incomingArray - sourse Array.
      * @return ArreyList.
      */
-    private static ArrayList<String> createSrtSet(ArrayList<String> incomingArray) {
-        ArrayList<String> result = new ArrayList<>();
+    public static TreeSet<String> createSrtSet(Collection<String> incomingArray) {
+        TreeSet<String> result = new TreeSet<>();
         for (String str : incomingArray) {
             ArrayList<String> splitStr = splitBySlash(str);
             StringBuilder strToAdd = new StringBuilder();
@@ -51,42 +54,22 @@ public class SortCodeArray {
     }
 
     /**
-     * metod sort Array by increase elements.
-     * @param incoming - incoming Array.
-     * @return sorted Array.
-     */
-    public static ArrayList<String> sortIncrease(ArrayList<String> incoming) {
-        ArrayList<String> result = createSrtSet(incoming);
-        result.sort(
-                new Comparator<String>() {
-                    @Override
-                    public int compare(String first, String second) {
-                        return first.compareTo(second);
-                    }
-                }
-        );
-        return result;
-    }
-
-    /**
      * metod sort Array by decrease elements.
      * @param incoming - incoming Array.
      * @return sorted Array.
      */
-    public static ArrayList<String> sortDecrease(ArrayList<String> incoming) {
-        ArrayList<String> result = createSrtSet(incoming);
-        result.sort(
-                new Comparator<String>() {
-                    @Override
-                    public int compare(String first, String second) {
-                        if ((first.length() < second.length() && first.contains(second.substring(0, first.length())))
-                                || (second.length() < first.length() && second.contains(first.substring(0, second.length())))) {
-                            return Integer.compare(first.length(), second.length());
-                        }
-                        return second.compareTo(first);
-                    }
+    public static TreeSet<String> sortDecrease(Collection<String> incoming) {
+        TreeSet<String> result = new TreeSet<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if ((o1.length() < o2.length() && o1.contains(o2.substring(0, o1.length())))
+                        || (o2.length() < o1.length() && o2.contains(o1.substring(0, o2.length())))) {
+                    return Integer.compare(o1.length(), o2.length());
                 }
-        );
+                return o2.compareTo(o1);
+            }
+        });
+        result.addAll(createSrtSet(incoming));
         return result;
     }
 }

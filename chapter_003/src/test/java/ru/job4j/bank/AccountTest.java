@@ -16,6 +16,7 @@ public class AccountTest {
     @Test
     public void whenAddPositiveValueThanTrueIfNotThanFalse() {
         Account account = new Account("15450 4545 6565");
+        account.setOccupied();
         double currentValue = account.getValue();
         boolean bool = account.addValue(100D);
         double changedValue = account.getValue();
@@ -29,6 +30,7 @@ public class AccountTest {
     @Test
     public void whenTakePositiveValueAddEnougtMoneyThanTrueIfNotThanFalse() {
         Account account = new Account("15450 4545 6565");
+        account.setOccupied();
         boolean bool = account.takeValue(100D);
         assert (!bool && account.getValue() == 0);
         account.addValue(200D);

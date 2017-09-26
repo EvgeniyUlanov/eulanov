@@ -53,17 +53,14 @@ public abstract class UserChar {
     /**
      * metod take damage.
      * @param damage - damage.
-     * @return boolean.
      */
-    public boolean takeDamage(int damage) {
+    public void takeDamage(int damage) {
         if (damage >= 0) {
             this.hp -= damage;
             if (this.hp <= 0) {
                 isAlive = false;
             }
-            return true;
         }
-        return false;
     }
 
     /**
@@ -90,14 +87,6 @@ public abstract class UserChar {
     }
 
     /**
-     * metod check debuffed.
-     * @return boolean.
-     */
-    public boolean checkDebuff() {
-        return isDebuffed;
-    }
-
-    /**
      * metod set debuff.
      */
     public void setDebuff() {
@@ -116,7 +105,7 @@ public abstract class UserChar {
      * @param character - character.
      * @return boolean.
      */
-    public boolean isEmemy(UserChar character) {
+    boolean isEmemy(UserChar character) {
         return !this.side.equals(character.side);
     }
 
@@ -173,8 +162,7 @@ public abstract class UserChar {
      * @return string.
      */
     public String toString() {
-        String str = getNameType() + " " + name;
-        return str;
+        return String.format("%s %s", getNameType(), name);
     }
 
     /**
@@ -189,7 +177,7 @@ public abstract class UserChar {
      * metod return name type.
      * @return name.
      */
-    public String getNameType() {
+    private String getNameType() {
         return nameType;
     }
 

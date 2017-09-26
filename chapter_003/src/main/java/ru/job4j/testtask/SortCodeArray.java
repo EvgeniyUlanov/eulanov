@@ -25,9 +25,7 @@ public class SortCodeArray {
             StringBuilder strToAdd = new StringBuilder();
             for (String string : splitStr) {
                 strToAdd.append(string);
-                if (!result.contains(strToAdd.toString())) {
-                    result.add(strToAdd.toString());
-                }
+                result.add(strToAdd.toString());
                 strToAdd.append("\\");
             }
         }

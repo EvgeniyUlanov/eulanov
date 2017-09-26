@@ -28,9 +28,6 @@ public class UndeadNecromant extends Mage {
      * @return boolean.
      */
     public boolean takeAction(UserChar target, int numberOfAction) {
-        if (this.isEmemy(target)) {
-            return getActionBehavior().get(0).action(target, this.getDamage());
-        }
-        return getActionBehavior().get(1).action(target, this.getDamage());
+        return getActionBehavior().get(numberOfAction).action(target, this.getDamage());
     }
 }

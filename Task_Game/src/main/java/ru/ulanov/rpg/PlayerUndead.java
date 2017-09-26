@@ -21,7 +21,7 @@ public class PlayerUndead extends Player {
         getHand().add(new UndeadArcher("Dagot", side));
         getHand().add(new UndeadFighter("Vaast", side));
         getHand().add(new UndeadFighter("Demien", side));
-        getHand().add(new UndeadFighter("Nigosh", side));
+        getHand().add(new UndeadFighter("Gosh", side));
         getHand().add(new UndeadFighter("Zitar", side));
     }
 }

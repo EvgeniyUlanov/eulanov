@@ -13,7 +13,7 @@ public class MagikDamnationAction implements Action {
      */
     public boolean action(UserChar target, int damage) {
         System.out.println(String.format(" set damnation to %s ", target.toString()));
-        target.setDebuff();
+        target.removeBuff();
         return true;
     }
 }

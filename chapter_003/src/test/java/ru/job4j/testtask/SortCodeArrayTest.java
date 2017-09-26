@@ -61,4 +61,5 @@ public class SortCodeArrayTest {
         expected.add("K1\\SK1\\SSK1");
         assertThat(result, is(expected));
     }
+
 }

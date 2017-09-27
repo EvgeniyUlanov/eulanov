@@ -15,3 +15,4 @@ public interface Action {
      */
     boolean action(UserChar target, int damage);
 }
+

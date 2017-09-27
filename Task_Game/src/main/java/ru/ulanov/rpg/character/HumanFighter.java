@@ -29,3 +29,4 @@ public class HumanFighter extends Fighter {
         return getActionBehavior().get(0).action(target, this.getDamage());
     }
 }
+

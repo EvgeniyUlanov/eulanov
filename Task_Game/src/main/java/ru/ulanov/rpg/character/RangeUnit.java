@@ -13,3 +13,4 @@ public abstract class RangeUnit extends UserChar {
         super(name, side);
     }
 }
+

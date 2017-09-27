@@ -36,3 +36,4 @@ public class UndeadArcher extends RangeUnit {
         }
     }
 }
+

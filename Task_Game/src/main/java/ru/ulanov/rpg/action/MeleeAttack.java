@@ -19,3 +19,4 @@ public class MeleeAttack implements Action {
         return true;
     }
 }
+

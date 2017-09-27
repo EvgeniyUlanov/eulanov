@@ -18,18 +18,21 @@ public class Game {
         Player rightPlayer = choosePlayerRight();
         System.out.println(String.format("Second player race - %s", rightPlayer.getRaceName()));
         Field field = new Field(leftPlayer, rightPlayer);
+        int count = 1;
         do {
+            System.out.println(String.format("Turn - %s", count));
             field.nextTurn();
             System.out.println("End of turn");
+            count++;
+            System.out.println("");
         } while (leftPlayer.getHand().size() > 0 && rightPlayer.getHand().size() > 0);
+        System.out.println(String.format("The game ended on %s turn", count));
         if (rightPlayer.getHand().size() == 0) {
-            System.out.println("Player left win.");
-            System.out.println(leftPlayer.getHand());
-            System.out.println(rightPlayer.getHand());
+            System.out.println(String.format("%s win, remained %s units", leftPlayer.getRaceName(),
+                    leftPlayer.getHand().size()));
         } else {
-            System.out.println("Player right win");
-            System.out.println(leftPlayer.getHand());
-            System.out.println(rightPlayer.getHand());
+            System.out.println(String.format("%s win, remained %s units", rightPlayer.getRaceName(),
+                    rightPlayer.getHand().size()));
         }
     }
 

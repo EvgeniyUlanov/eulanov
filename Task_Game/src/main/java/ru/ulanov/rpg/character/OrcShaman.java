@@ -33,3 +33,4 @@ public class OrcShaman extends Mage {
         return getActionBehavior().get(1).action(target, this.getDamage());
     }
 }
+

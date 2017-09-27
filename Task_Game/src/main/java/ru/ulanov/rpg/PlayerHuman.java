@@ -25,3 +25,4 @@ public class PlayerHuman extends Player {
         getHand().add(new HumanFighter("Aleksandr", side));
     }
 }
+

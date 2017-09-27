@@ -1,7 +1,7 @@
 package ru.ulanov.rpg.action;
 
 /**
- * interface MagilAction.
+ * interface Magik Action.
  */
 public interface MagikAction extends Action {
 }

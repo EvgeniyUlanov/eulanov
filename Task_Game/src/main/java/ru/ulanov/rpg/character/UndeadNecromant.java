@@ -31,3 +31,4 @@ public class UndeadNecromant extends Mage {
         return getActionBehavior().get(numberOfAction).action(target, this.getDamage());
     }
 }
+

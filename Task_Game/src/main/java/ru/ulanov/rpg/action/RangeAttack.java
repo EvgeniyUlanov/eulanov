@@ -19,3 +19,4 @@ public class RangeAttack implements Action {
         return true;
     }
 }
+

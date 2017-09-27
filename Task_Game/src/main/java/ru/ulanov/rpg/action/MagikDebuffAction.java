@@ -18,3 +18,4 @@ public class MagikDebuffAction implements Action {
         return true;
     }
 }
+

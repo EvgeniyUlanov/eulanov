@@ -25,3 +25,4 @@ public class PlayerElf extends Player {
         getHand().add(new ElfFighter("Inon", side));
     }
 }
+

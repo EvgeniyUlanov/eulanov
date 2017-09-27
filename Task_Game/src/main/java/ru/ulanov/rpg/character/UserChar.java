@@ -189,3 +189,4 @@ public abstract class UserChar {
         return hp;
     }
 }
+

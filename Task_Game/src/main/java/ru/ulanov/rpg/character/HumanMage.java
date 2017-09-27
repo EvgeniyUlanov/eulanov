@@ -35,3 +35,4 @@ public class HumanMage extends Mage {
         return getActionBehavior().get(1).action(target, this.getDamage());
     }
 }
+

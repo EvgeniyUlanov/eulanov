@@ -19,3 +19,4 @@ public class MagikAttackAction implements Action {
         return true;
     }
 }
+

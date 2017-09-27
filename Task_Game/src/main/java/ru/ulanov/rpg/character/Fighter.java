@@ -13,3 +13,4 @@ public abstract class Fighter extends UserChar {
         super(name, side);
     }
 }
+

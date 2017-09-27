@@ -25,3 +25,4 @@ public class PlayerUndead extends Player {
         getHand().add(new UndeadFighter("Zitar", side));
     }
 }
+

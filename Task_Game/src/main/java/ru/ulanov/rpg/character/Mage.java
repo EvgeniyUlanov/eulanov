@@ -13,3 +13,4 @@ public abstract class Mage extends UserChar {
         super(name, side);
     }
 }
+

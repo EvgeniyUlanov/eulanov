@@ -25,3 +25,4 @@ public class PlayerOrc extends Player {
         getHand().add(new OrcFighter("Urveg", side));
     }
 }
+

@@ -16,7 +16,7 @@ public class SortCodeArray {
     /**
      * metod create set of strings for dictionary.
      * @param incomingArray - sourse Array.
-     * @return ArreyList.
+     * @return TreeSet.
      */
     public static TreeSet<String> createSrtSet(Collection<String> incomingArray) {
         TreeSet<String> result = new TreeSet<>();
@@ -54,7 +54,7 @@ public class SortCodeArray {
     /**
      * metod sort Array by decrease elements.
      * @param incoming - incoming Array.
-     * @return sorted Array.
+     * @return TreeSet.
      */
     public static TreeSet<String> sortDecrease(Collection<String> incoming) {
         TreeSet<String> result = new TreeSet<>(new Comparator<String>() {

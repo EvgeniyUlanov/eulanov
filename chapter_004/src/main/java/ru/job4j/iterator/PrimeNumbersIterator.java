@@ -1,6 +1,5 @@
 package ru.job4j.iterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Iterator;
  */
 public class PrimeNumbersIterator implements Iterator {
     /** values.*/
-    private ArrayList<Integer> values = new ArrayList<>();
+    private final int[] values;
     /** index.*/
     private int index = 0;
 
@@ -16,12 +15,8 @@ public class PrimeNumbersIterator implements Iterator {
      * constructor.
      * @param values - incoming array.
      */
-    public PrimeNumbersIterator(int[] values) {
-        for (Integer value : values) {
-            if (checkPrimeNumber(value)) {
-                this.values.add(value);
-            }
-        }
+    public PrimeNumbersIterator(final int[] values) {
+        this.values = values;
     }
 
     /**
@@ -30,7 +25,12 @@ public class PrimeNumbersIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return index < values.size();
+        for (int i = index; i < values.length; i++) {
+            if (checkPrimeNumber(values[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -39,10 +39,13 @@ public class PrimeNumbersIterator implements Iterator {
      */
     @Override
     public Integer next() {
-        if (index >= values.size()) {
-            return null;
+        for (int i = index; i < values.length; i++) {
+            if (checkPrimeNumber(values[i])) {
+                index = i + 1;
+                return values[i];
+            }
         }
-        return values.get(index++);
+        return null;
     }
 
     /**

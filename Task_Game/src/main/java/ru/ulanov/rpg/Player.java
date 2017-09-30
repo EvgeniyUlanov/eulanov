@@ -17,10 +17,6 @@ public abstract class Player {
     private String raceName;
     /** side.*/
     private String side;
-    /** buffed units.*/
-    private ArrayList<UserChar> buffedUnits = new ArrayList<>();
-    /** ordinary units.*/
-    private ArrayList<UserChar> ordinaryUnits = new ArrayList<>();
     /** activeUnits.*/
     private ArrayList<UserChar> activeUnits = new ArrayList<>();
     /** random.*/

@@ -1,6 +1,5 @@
 package ru.job4j.iterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -10,8 +9,8 @@ import java.util.Iterator;
  * @since 0.1
  */
 public class ArrayIterator implements Iterator<Integer> {
-    /** array values to keep incoming value.*/
-    private ArrayList<Integer> values = new ArrayList<>();
+    /** incoming values.*/
+    private final int[][] values;
     /** index of current element.*/
     private int index = 0;
 
@@ -19,12 +18,8 @@ public class ArrayIterator implements Iterator<Integer> {
      * constructor.
      * @param values - incoming value.
      */
-    public ArrayIterator(int[][] values) {
-        for (int i = 0; i < values.length; i++) {
-            for (int j = 0; j < values[i].length; j++) {
-                this.values.add(values[i][j]);
-            }
-        }
+    public ArrayIterator(final int[][] values) {
+        this.values = values;
     }
 
     /**
@@ -33,15 +28,29 @@ public class ArrayIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        return index < values.size();
+        int sumIndex = 0;
+        for (int i = 0; i < values.length; i++) {
+            sumIndex += values[i].length;
+        }
+        return index < sumIndex;
     }
 
     /**
      * metod next.
-     * @return
+     * @return integer.
      */
     @Override
     public Integer next() {
-        return values.get(index++);
+        int sumInd = 0;
+        int result = 0;
+        for (int i = 0; i < values.length; i++) {
+            sumInd += values[i].length;
+            if (index < sumInd) {
+                result = values[i][values.length - (sumInd - index)];
+                break;
+            }
+        }
+        index++;
+        return result;
     }
 }

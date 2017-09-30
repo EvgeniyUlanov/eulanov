@@ -26,7 +26,6 @@ public class EvenIteratorTest {
 
     /**
      * test metod next.
-     * @throws Exception
      */
     @Test
     public void ifMetodNextReturnOnlyEvenNumbersThanOk() {
@@ -37,7 +36,7 @@ public class EvenIteratorTest {
         while (iter.hasNext()) {
             result.add(iter.next());
         }
-        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(new Integer[]{2, 4}));
+        ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(2, 4));
 
         assertThat(result, is(expected));
     }

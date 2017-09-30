@@ -1,6 +1,5 @@
 package ru.job4j.iterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -11,20 +10,16 @@ import java.util.Iterator;
  */
 public class EvenIterator implements Iterator<Integer> {
     /** values.*/
-    private final ArrayList<Integer> values = new ArrayList<>();
+    private final int[] values;
     /** index.*/
-    private int index = 0;
+    private int index;
 
     /**
      * constructor.
      * @param incoming - incoming array.
      */
     public EvenIterator(final int[] incoming) {
-        for (int value : incoming) {
-            if (value % 2 == 0) {
-                values.add(value);
-            }
-        }
+        this.values = incoming;
     }
 
     /**
@@ -33,7 +28,12 @@ public class EvenIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        return index < values.size();
+        for (int i = index; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -42,6 +42,12 @@ public class EvenIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        return values.get(index++);
+        for (int i = index; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                index = i + 1;
+                return values[i];
+            }
+        }
+        return null;
     }
 }

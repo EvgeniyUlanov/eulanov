@@ -1,10 +1,12 @@
 package ru.job4j.generic;
 
+import java.util.Iterator;
+
 /**
  * class SimpleArray.
  * @param <E> - type of elements to keep.
  */
-public class SimpleArray<E> {
+public class SimpleArray<E> implements Iterable<E> {
 
     /** data storage.*/
     private Object[] data;
@@ -15,7 +17,7 @@ public class SimpleArray<E> {
      * default constructor.
      */
     public SimpleArray() {
-        this.data = new Object[10];
+        this(10);
     }
 
     /**
@@ -83,5 +85,33 @@ public class SimpleArray<E> {
         if (position > index || position < 0) {
             throw new WrongPositionException("position is wrong");
         }
+    }
+
+    /**
+     * metod iterator.
+     * @return iterator.
+     */
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private int count;
+            @Override
+            public boolean hasNext() {
+                return count < index;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public E next() {
+                return (E) data[count++];
+            }
+        };
+    }
+
+    /**
+     * metod size.
+     * @return size.
+     */
+    public int size() {
+        return index;
     }
 }

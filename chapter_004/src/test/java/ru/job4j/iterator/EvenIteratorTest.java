@@ -3,6 +3,8 @@ package ru.job4j.iterator;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -11,7 +13,7 @@ import static org.junit.Assert.assertThat;
  */
 public class EvenIteratorTest {
     /**
-     * test metod hasNext.
+     * test method hasNext.
      */
     @Test
     public void ifIncomingArrayHasNextEvenNumberThanTrue() {
@@ -25,10 +27,10 @@ public class EvenIteratorTest {
     }
 
     /**
-     * test metod next.
+     * test method next.
      */
     @Test
-    public void ifMetodNextReturnOnlyEvenNumbersThanOk() {
+    public void ifMethodNextReturnOnlyEvenNumbersThanOk() {
         int[] incoming = {2, 3, 4, 5};
         EvenIterator iter = new EvenIterator(incoming);
 
@@ -39,6 +41,18 @@ public class EvenIteratorTest {
         ArrayList<Integer> expected = new ArrayList<>(Arrays.asList(2, 4));
 
         assertThat(result, is(expected));
+    }
+
+    /**
+     * test next method exception.
+     */
+    @Test (expected = NoSuchElementException.class)
+    public void whenHaveNotNextEvenElementThanNextException() {
+        int[] incoming = {3, 5, 4, 5};
+        EvenIterator iter = new EvenIterator(incoming);
+
+        iter.next();
+        iter.next();
     }
 
 }

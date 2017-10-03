@@ -1,6 +1,7 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * class ArrayIterator.
@@ -11,8 +12,12 @@ import java.util.Iterator;
 public class ArrayIterator implements Iterator<Integer> {
     /** incoming values.*/
     private final int[][] values;
-    /** index of current element.*/
-    private int index = 0;
+    /** currentArray.*/
+    private int[] currentArray;
+    /** index of current element in currentArray.*/
+    private int index;
+    /** count of arrays.*/
+    private int arrayCount;
 
     /**
      * constructor.
@@ -20,6 +25,8 @@ public class ArrayIterator implements Iterator<Integer> {
      */
     public ArrayIterator(final int[][] values) {
         this.values = values;
+        currentArray = values[0];
+        arrayCount = values.length - 1;
     }
 
     /**
@@ -28,11 +35,7 @@ public class ArrayIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        int sumIndex = 0;
-        for (int i = 0; i < values.length; i++) {
-            sumIndex += values[i].length;
-        }
-        return index < sumIndex;
+        return arrayCount > 0 || index < currentArray.length;
     }
 
     /**
@@ -41,15 +44,16 @@ public class ArrayIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        int sumInd = 0;
-        int result = 0;
-        for (int i = 0; i < values.length; i++) {
-            sumInd += values[i].length;
-            if (index < sumInd) {
-                result = values[i][values.length - (sumInd - index)];
-                break;
-            }
+        Integer result = null;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
+        if (index == currentArray.length) {
+            currentArray = values[values.length - arrayCount];
+            arrayCount--;
+            index = 0;
+        }
+        result = currentArray[index];
         index++;
         return result;
     }

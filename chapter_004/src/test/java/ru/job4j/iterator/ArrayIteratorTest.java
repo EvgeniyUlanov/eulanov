@@ -36,7 +36,7 @@ public class ArrayIteratorTest {
         while (iter.hasNext()) {
             result.add(iter.next());
         }
-        ArrayList<Integer> expected = new ArrayList<Integer>();
+        ArrayList<Integer> expected = new ArrayList<>();
         expected.addAll(Arrays.asList(1, 2, 3, 4));
 
         assertThat(result, is(expected));

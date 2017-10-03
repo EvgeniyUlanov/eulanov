@@ -16,7 +16,7 @@ public class Converter {
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<Integer>() {
 
-            Iterator<Integer> current = it.next();
+            private Iterator<Integer> current = it.next();
 
             @Override
             public boolean hasNext() {

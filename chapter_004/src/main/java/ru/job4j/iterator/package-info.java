@@ -1,5 +1,5 @@
 /**
- * Package for testtask.
+ * Package for iterator.
  *
  * @author Evgeiniy Ulanov.
  * @version $Id$

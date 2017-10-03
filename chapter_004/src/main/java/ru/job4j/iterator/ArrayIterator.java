@@ -44,7 +44,7 @@ public class ArrayIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        Integer result = null;
+        Integer result;
         if (!hasNext()) {
             throw new NoSuchElementException();
         }

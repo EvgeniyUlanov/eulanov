@@ -1,8 +1,6 @@
 package ru.job4j.iterator;
 
 import org.junit.Test;
-import org.omg.CORBA.INTERNAL;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

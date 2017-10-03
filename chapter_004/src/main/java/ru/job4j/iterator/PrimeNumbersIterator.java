@@ -1,6 +1,7 @@
 package ru.job4j.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * class prime numbers iterator.
@@ -20,45 +21,54 @@ public class PrimeNumbersIterator implements Iterator {
     }
 
     /**
-     * metod has next.
+     * method has next.
      * @return boolean.
      */
     @Override
     public boolean hasNext() {
+        boolean bool = false;
         for (int i = index; i < values.length; i++) {
             if (checkPrimeNumber(values[i])) {
-                return true;
+                bool = true;
+                index = i;
+                break;
             }
         }
-        return false;
+        return bool;
     }
 
     /**
-     * metod next.
+     * method next.
      * @return Integer.
      */
     @Override
     public Integer next() {
-        for (int i = index; i < values.length; i++) {
-            if (checkPrimeNumber(values[i])) {
-                index = i + 1;
-                return values[i];
-            }
+        int result;
+        if (hasNext()) {
+            result = values[index];
+            index++;
+        } else {
+            throw new NoSuchElementException();
         }
-        return null;
+        return result;
     }
 
     /**
-     * metod checks Prime number.
+     * method checks Prime number.
      * @param i - number.
      * @return bool.
      */
-    private boolean checkPrimeNumber(Integer i) {
+    private boolean checkPrimeNumber(int i) {
+        boolean result = true;
         for (long j = 2; j <= Math.sqrt(i); j++) {
             if (i % j == 0) {
-                return false;
+                result = false;
+                break;
             }
         }
-        return true;
+        if (i == 1 || i == 0) {
+            result = false;
+        }
+        return result;
     }
 }

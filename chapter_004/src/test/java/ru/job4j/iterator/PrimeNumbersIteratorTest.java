@@ -1,6 +1,9 @@
 package ru.job4j.iterator;
 
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -19,7 +22,6 @@ public class PrimeNumbersIteratorTest {
 
         iter.next();
         iter.next();
-        iter.next();
 
         assertThat(iter.hasNext(), is(false));
     }
@@ -31,9 +33,18 @@ public class PrimeNumbersIteratorTest {
         PrimeNumbersIterator iter = new PrimeNumbersIterator(new int[]{1, 2, 4, 5, 6, 8, 11});
 
         iter.next();
-        iter.next();
 
         assertThat(iter.next(), is(5));
         assertThat(iter.next(), is(11));
+    }
+    /**
+     * test method next exception.
+     */
+    @Test (expected = NoSuchElementException.class)
+    public void whenHaveNotNextPrimeNumberThanNextReturnException() {
+        PrimeNumbersIterator iter = new PrimeNumbersIterator(new int[]{11});
+
+        iter.next();
+        iter.next();
     }
 }

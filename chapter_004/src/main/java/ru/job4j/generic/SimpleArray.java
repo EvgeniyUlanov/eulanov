@@ -33,7 +33,9 @@ public class SimpleArray<E> implements Iterable<E> {
      * @param value - value to add.
      */
     public void add(E value) {
-        this.data[index++] = value;
+        if (index < data.length) {
+            this.data[index++] = value;
+        }
     }
 
     /**

@@ -24,7 +24,8 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             lastNode = newNode;
             firstNode = lastNode;
         } else {
-            lastNode.setNext(newNode);
+            lastNode.next = newNode;
+            newNode.previous = lastNode;
             lastNode = newNode;
         }
         size++;
@@ -40,9 +41,9 @@ public class SimpleLinkedList<T> implements Iterable<T> {
             Node<T> current = firstNode;
             for (int i = 0; i <= index; i++) {
                 if (i == index) {
-                    return current.getItem();
+                    return current.item;
                 }
-                current = current.getNext();
+                current = current.next;
             }
         }
         return null;
@@ -65,8 +66,8 @@ public class SimpleLinkedList<T> implements Iterable<T> {
 
             @Override
             public T next() {
-                T result = (T) current.getItem();
-                current = current.getNext();
+                T result = (T) current.item;
+                current = current.next;
                 return result;
             }
         };
@@ -79,6 +80,8 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     private class Node<T> {
         /** next node.*/
         private Node<T> next;
+        /** previous node.*/
+        private Node<T> previous;
         /** item that keep value.*/
         private T item;
 
@@ -88,31 +91,6 @@ public class SimpleLinkedList<T> implements Iterable<T> {
          */
         Node(T item) {
             this.item = item;
-            this.next = null;
-        }
-
-        /**
-         * metod get next node.
-         * @return next node.
-         */
-        Node<T> getNext() {
-            return next;
-        }
-
-        /**
-         * metod set next node.
-         * @param node - node.
-         */
-        void setNext(Node<T> node) {
-            this.next = node;
-        }
-
-        /**
-         * metod getItem.
-         * @return item.
-         */
-        T getItem() {
-            return item;
         }
     }
 }

@@ -56,7 +56,7 @@ public class SimpleStack<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            private Node current = firstNode;
+            private Node<T> current = firstNode;
 
             @Override
             public boolean hasNext() {
@@ -64,9 +64,11 @@ public class SimpleStack<T> implements Iterable<T> {
             }
 
             @Override
-            @SuppressWarnings("unchecked")
             public T next() {
-                T result = (T) current.item;
+                if (current == null) {
+                    throw new NoSuchElementException();
+                }
+                T result = current.item;
                 current = current.next;
                 return result;
             }

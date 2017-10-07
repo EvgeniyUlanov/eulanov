@@ -2,6 +2,7 @@ package ru.job4j.list;
 
 /**
  * class Node.
+ * @param <T> - type.
  */
 public class Node<T> {
     /** value.*/

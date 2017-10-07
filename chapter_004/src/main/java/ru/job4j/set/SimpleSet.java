@@ -68,6 +68,7 @@ public class SimpleSet<E> implements Iterable<E> {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public E next() {
                 return (E) data[count++];
             }

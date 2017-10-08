@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
  */
 public class CheckCycleTest {
     /**
-     * test method hasCycle.
+     * test method hasCycle 1-2-3-4-1.
      */
     @Test
     public void whenListHasCycleThanMethodReturnTrue() {
@@ -26,7 +26,7 @@ public class CheckCycleTest {
     }
 
     /**
-     * test method hasCycle.
+     * test method hasCycle 1-2-3-4.
      */
     @Test
     public void whenListHasNotCycleThanMethodReturnFalse() {
@@ -39,5 +39,38 @@ public class CheckCycleTest {
         third.setNext(fourth);
 
         assertThat(CheckCycle.hasCycle(first), is(false));
+    }
+
+    /**
+     * test method hasCycle 1-2-3-4-2.
+     */
+    @Test
+    public void whenListHasCycleThanMethodReturnTrueFourthNodeNextSecond() {
+        Node<Integer> first = new Node<>(1);
+        Node<Integer> second = new Node<>(2);
+        Node<Integer> third = new Node<>(3);
+        Node<Integer> fourth = new Node<>(4);
+        first.setNext(second);
+        second.setNext(third);
+        third.setNext(fourth);
+        fourth.setNext(second);
+
+        assertThat(CheckCycle.hasCycle(first), is(true));
+    }
+
+    /**
+     * test method hasCycle 1-2-3-2.
+     */
+    @Test
+    public void whenListHasCycleThanMethodReturnTrueThirdNodeNextSecond() {
+        Node<Integer> first = new Node<>(1);
+        Node<Integer> second = new Node<>(2);
+        Node<Integer> third = new Node<>(3);
+        Node<Integer> fourth = new Node<>(4);
+        first.setNext(second);
+        second.setNext(third);
+        third.setNext(second);
+
+        assertThat(CheckCycle.hasCycle(first), is(true));
     }
 }

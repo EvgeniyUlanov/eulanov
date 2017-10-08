@@ -42,6 +42,23 @@ public class UserTest {
     }
 
     /**
+     * test with override equals.
+     */
+    @Test
+    public void twoUserWithTheSameAttributesEqualsIsOverride() {
+        UserEquals user = new UserEquals("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+        UserEquals user2 = new UserEquals("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+
+        Map<UserEquals, String> map = new HashMap<>();
+        map.put(user, "first");
+        map.put(user2, "second");
+
+        System.out.println(map);
+        System.out.println(user.hashCode());
+        System.out.println(user2.hashCode());
+    }
+
+    /**
      * test with override hashCode and equals.
      */
     @Test

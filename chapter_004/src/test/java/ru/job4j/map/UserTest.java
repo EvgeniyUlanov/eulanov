@@ -9,6 +9,9 @@ import java.util.Map;
  * class UserTest.
  */
 public class UserTest {
+    /**
+     * test without overriding.
+     */
     @Test
     public void twoUserWithTheSameAttributes() {
         User user = new User("Georgy", 2, new GregorianCalendar(1985, 7, 11));
@@ -19,5 +22,21 @@ public class UserTest {
         map.put(user2, "second");
 
         System.out.println(map);
+    }
+    /**
+     * test with override hashCode.
+     */
+    @Test
+    public void twoUserWithTheSameAttributesHashCodeIsOverride() {
+        UserHash user = new UserHash("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+        UserHash user2 = new UserHash("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+
+        Map<UserHash, String> map = new HashMap<>();
+        map.put(user, "first");
+        map.put(user2, "second");
+
+        System.out.println(map);
+        System.out.println(user.hashCode());
+        System.out.println(user2.hashCode());
     }
 }

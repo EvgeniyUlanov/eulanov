@@ -3,9 +3,9 @@ package ru.job4j.map;
 import java.util.Calendar;
 
 /**
- * class User.
+ * class UserHash.
  */
-public class User {
+public class UserHash {
     /** name.*/
     private String name;
     /** number of children.*/
@@ -19,7 +19,7 @@ public class User {
      * @param children - children.
      * @param birthday - birthday.
      */
-    public User(String name, int children, Calendar birthday) {
+    public UserHash(String name, int children, Calendar birthday) {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
@@ -33,5 +33,18 @@ public class User {
     public String toString() {
         return String.format("%s(%s children) - %s.%s.%s", name, children, birthday.get(Calendar.YEAR),
                 birthday.get(Calendar.MONTH), birthday.get(Calendar.DATE));
+    }
+
+    /**
+     * metod hashCode.
+     * @return int.
+     */
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = result * 31 + name.hashCode();
+        result = result * 31 + children;
+        result = result * 31 + birthday.hashCode();
+        return result;
     }
 }

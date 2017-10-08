@@ -23,6 +23,7 @@ public class UserTest {
 
         System.out.println(map);
     }
+
     /**
      * test with override hashCode.
      */
@@ -38,5 +39,23 @@ public class UserTest {
         System.out.println(map);
         System.out.println(user.hashCode());
         System.out.println(user2.hashCode());
+    }
+
+    /**
+     * test with override hashCode and equals.
+     */
+    @Test
+    public void twoUserWithTheSameAttributesHashCodeAndEqualsIsOverride() {
+        UserEqualsHash user = new UserEqualsHash("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+        UserEqualsHash user2 = new UserEqualsHash("Georgy", 2, new GregorianCalendar(1985, 7, 11));
+
+        Map<UserEqualsHash, String> map = new HashMap<>();
+        map.put(user, "first");
+        map.put(user2, "second");
+
+        System.out.println(map);
+        System.out.println(user.hashCode());
+        System.out.println(user2.hashCode());
+        System.out.println(user.equals(user2));
     }
 }

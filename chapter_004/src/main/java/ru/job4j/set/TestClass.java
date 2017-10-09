@@ -1,6 +1,13 @@
 package ru.job4j.set;
 
+/**
+ * class test.
+ */
 public class TestClass {
+    /**
+     * method main.
+     * @param args - args.
+     */
     public static void main(String[] args) {
 
         SimpleSet<String> simpleSet = new SimpleSet<>(10000);

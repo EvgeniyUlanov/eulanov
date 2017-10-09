@@ -14,7 +14,9 @@ class CheckCycle {
         if (first != null) {
             Node current = first;
             Node second = first;
-            while (current.getNext() != null && !result && second.getNext().getNext() != null) {
+            while (current.getNext() != null && !result
+                    && second.getNext() != null
+                    && second.getNext().getNext() != null) {
                 current = current.getNext();
                 second = second.getNext().getNext();
                 result = current == second;

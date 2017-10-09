@@ -59,7 +59,7 @@ public class CheckCycleTest {
     }
 
     /**
-     * test method hasCycle 1-2-3-2.
+     * test method hasCycle 1-2-3.
      */
     @Test
     public void whenListHasCycleThanMethodReturnTrueThirdNodeNextSecond() {
@@ -69,8 +69,7 @@ public class CheckCycleTest {
         Node<Integer> fourth = new Node<>(4);
         first.setNext(second);
         second.setNext(third);
-        third.setNext(second);
 
-        assertThat(CheckCycle.hasCycle(first), is(true));
+        assertThat(CheckCycle.hasCycle(first), is(false));
     }
 }

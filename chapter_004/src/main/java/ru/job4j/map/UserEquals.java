@@ -51,4 +51,13 @@ public class UserEquals {
         }
         return result;
     }
+
+    /**
+     * method hashCode just for checkstyle.
+     * @return int.
+     */
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }

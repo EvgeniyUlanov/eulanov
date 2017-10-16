@@ -1,9 +1,16 @@
 package ru.job4j.tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
+/**
+ * class Tree.
+ * @param <E> - element.
+ */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
-
+    /** head of tree.*/
     private Node<E> head;
 
     /**
@@ -14,17 +21,23 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     @Override
     public boolean add(E parent, E child) {
-        boolean result = true;
+        boolean result = false;
         if (head == null) {
             head = new Node<>(parent);
             head.addChild(child);
+            result = true;
         } else {
             Node<E> resultParent = searchParent(head, parent);
             if (resultParent != null) {
-                if (!resultParent.getValue().equals(child)) {
+                boolean inTree = false;
+                for (E value : this) {
+                    if (value.compareTo(child) == 0) {
+                        inTree = true;
+                    }
+                }
+                if (!inTree) {
                     resultParent.addChild(child);
-                } else {
-                    result = false;
+                    result = true;
                 }
             } else {
                 throw new NoSuchElementException();
@@ -33,6 +46,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return result;
     }
 
+    /**
+     * method searchParent.
+     * @param start - start node.
+     * @param parent - value of parent.
+     * @return node.
+     */
     private Node<E> searchParent(Node<E> start, E parent) {
         Node<E> result = null;
         if (start.getValue().equals(parent)) {
@@ -57,31 +76,52 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return new TreeIterator<E>(head);
     }
 
+    /**
+     * class tree iterator.
+     * @param <E> - element.
+     */
     class TreeIterator<E> implements Iterator<E> {
+        /** data.*/
+        private ArrayList<Node<E>> data = new ArrayList<>();
+        /** iterator.*/
+        private Iterator<Node<E>> iter;
 
-        ArrayList<Node<E>> data = new ArrayList<>();
-        Iterator<Node<E>> iter;
-
-        TreeIterator(Node<E> head) {
-            findAll(head);
+        /**
+         * constructor.
+         * @param first - first node.
+         */
+        TreeIterator(Node<E> first) {
+            findAll(first);
             iter = data.iterator();
         }
 
+        /**
+         * method hasNext.
+         * @return boolean.
+         */
         @Override
         public boolean hasNext() {
             return iter.hasNext();
         }
 
+        /**
+         * method next.
+         * @return value.
+         */
         @Override
         public E next() {
             return iter.next().getValue();
         }
 
-        private void findAll(Node<E> head) {
-            if (head != null) {
-                data.add(head);
-                if (head.getChildren() != null) {
-                    for (Node<E> child : head.getChildren()) {
+        /**
+         * method findAll.
+         * @param start - start node.
+         */
+        private void findAll(Node<E> start) {
+            if (start != null) {
+                data.add(start);
+                if (start.getChildren() != null) {
+                    for (Node<E> child : start.getChildren()) {
                         findAll(child);
                     }
                 }
@@ -89,6 +129,10 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         }
     }
 
+    /**
+     * class Node.
+     * @param <E> - element.
+     */
     class Node<E> {
 
         /** list to keep children.*/

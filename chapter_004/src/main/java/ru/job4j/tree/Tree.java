@@ -68,12 +68,40 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     /**
+     * method isBinary.
+     * @return boolean.
+     */
+    public boolean isBinary() {
+        return nodeIsBinary(head);
+    }
+
+    /**
+     * method nodeIsBinary.
+     * @param node - start node.
+     * @return boolean.
+     */
+    private boolean nodeIsBinary(Node<E> node) {
+        boolean result = true;
+        if (node.getChildren().size() > 2) {
+            result = false;
+        } else {
+            for (Node<E> nd : node.getChildren()) {
+                result = nodeIsBinary(nd);
+                if (!result) {
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * iterator.
      * @return iterator.
      */
     @Override
     public Iterator<E> iterator() {
-        return new TreeIterator<E>(head);
+        return new TreeIterator<>(head);
     }
 
     /**

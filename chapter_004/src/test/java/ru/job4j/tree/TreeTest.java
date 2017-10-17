@@ -50,6 +50,7 @@ public class TreeTest {
             System.out.println(str);
         }
     }
+
     /**
      * test exception.
      */
@@ -63,5 +64,24 @@ public class TreeTest {
         tree.add("two", "five");
         tree.add("one", "five");
         tree.add("six", "seven");
+    }
+
+    /**
+     * test is Binary.
+     */
+    @Test
+    public void ifTreeIsBinaryThanResultIsTrueElseFalse() {
+        Tree<String> tree = new Tree<>();
+
+        tree.add("one", "two");
+        tree.add("one", "tree");
+        tree.add("two", "four");
+        tree.add("two", "five");
+
+        assertThat(tree.isBinary(), is(true));
+
+        tree.add("one", "six");
+
+        assertThat(tree.isBinary(), is(false));
     }
 }

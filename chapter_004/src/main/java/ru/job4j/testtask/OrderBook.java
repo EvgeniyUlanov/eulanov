@@ -16,16 +16,16 @@ public class OrderBook {
     /** orderbook name.*/
     private String orderBookName;
     /** comparator.*/
-    private Comparator<Double> highPrice = new Comparator<Double>() {
+    private Comparator<Float> highPrice = new Comparator<Float>() {
         @Override
-        public int compare(Double o1, Double o2) {
+        public int compare(Float o1, Float o2) {
             return o2.compareTo(o1);
         }
     };
     /** tree map for keep ask orders.*/
-    private TreeMap<Double, LinkedList<Order>> askOrders = new TreeMap<>();
+    private TreeMap<Float, LinkedList<Order>> askOrders = new TreeMap<>();
     /** tree map for keep bid orders.*/
-    private TreeMap<Double, LinkedList<Order>> bidOrders = new TreeMap<>(highPrice);
+    private TreeMap<Float, LinkedList<Order>> bidOrders = new TreeMap<>(highPrice);
 
     /**
      * constructor.
@@ -40,21 +40,20 @@ public class OrderBook {
      * @param orderToAdd - order.
      */
     public void add(Order orderToAdd) {
-        Double price = orderToAdd.getPrice();
         if (orderToAdd.getOperation().equals("SELL")) {
             if (adjustSell(orderToAdd) != null) {
-                if (askOrders.containsKey(price)) {
-                    askOrders.get(price).add(orderToAdd);
+                if (askOrders.containsKey(orderToAdd.getPrice())) {
+                    askOrders.get(orderToAdd.getPrice()).add(orderToAdd);
                 } else {
-                    askOrders.put(price, new LinkedList<>(Arrays.asList(orderToAdd)));
+                    askOrders.put(orderToAdd.getPrice(), new LinkedList<>(Arrays.asList(orderToAdd)));
                 }
             }
         } else if (orderToAdd.getOperation().equals("BUY")) {
             if (adjustBuy(orderToAdd) != null) {
-                if (bidOrders.containsKey(price)) {
-                    bidOrders.get(price).add(orderToAdd);
+                if (bidOrders.containsKey(orderToAdd.getPrice())) {
+                    bidOrders.get(orderToAdd.getPrice()).add(orderToAdd);
                 } else {
-                    bidOrders.put(price, new LinkedList<>(Arrays.asList(orderToAdd)));
+                    bidOrders.put(orderToAdd.getPrice(), new LinkedList<>(Arrays.asList(orderToAdd)));
                 }
             }
         }
@@ -76,10 +75,10 @@ public class OrderBook {
      * @param id - id.
      * @return boolean.
      */
-    private boolean deleteFromMap(TreeMap<Double, LinkedList<Order>> map, int id) {
+    private boolean deleteFromMap(TreeMap<Float, LinkedList<Order>> map, int id) {
         Order find = null;
-        Double searchValue = null;
-        for (Map.Entry<Double, LinkedList<Order>> entry : map.entrySet()) {
+        Float searchValue = null;
+        for (Map.Entry<Float, LinkedList<Order>> entry : map.entrySet()) {
             for (Order order : entry.getValue()) {
                 if (order.getOrderId() == id) {
                     find = order;
@@ -106,8 +105,8 @@ public class OrderBook {
      * @return order.
      */
     private Order adjustSell(Order sell) {
-        ArrayList<Double> priceToDelete = new ArrayList<>();
-        for (Map.Entry<Double, LinkedList<Order>> entry : bidOrders.entrySet()) {
+        ArrayList<Float> priceToDelete = new ArrayList<>();
+        for (Map.Entry<Float, LinkedList<Order>> entry : bidOrders.entrySet()) {
             if (entry.getKey() >= sell.getPrice()) {
                 LinkedList<Order> list = entry.getValue();
                 Iterator<Order> iter = list.iterator();
@@ -127,7 +126,7 @@ public class OrderBook {
             }
         }
         if (!priceToDelete.isEmpty()) {
-            for (Double price : priceToDelete) {
+            for (Float price : priceToDelete) {
                 bidOrders.remove(price);
             }
         }
@@ -140,8 +139,8 @@ public class OrderBook {
      * @return order.
      */
     private Order adjustBuy(Order buy) {
-        ArrayList<Double> priceToDelete = new ArrayList<>();
-        for (Map.Entry<Double, LinkedList<Order>> entry : askOrders.entrySet()) {
+        ArrayList<Float> priceToDelete = new ArrayList<>();
+        for (Map.Entry<Float, LinkedList<Order>> entry : askOrders.entrySet()) {
             if (entry.getKey() <= buy.getPrice()) {
                 LinkedList<Order> list = entry.getValue();
                 Iterator<Order> iter = list.iterator();
@@ -161,7 +160,7 @@ public class OrderBook {
             }
         }
         if (!priceToDelete.isEmpty()) {
-            for (Double price : priceToDelete) {
+            for (Float price : priceToDelete) {
                 askOrders.remove(price);
             }
         }
@@ -175,8 +174,8 @@ public class OrderBook {
         System.out.println("Book name:" + orderBookName);
         System.out.println("BID              ASK");
         System.out.println("volume@price  -  volume@price");
-        Iterator<Map.Entry<Double, LinkedList<Order>>> iterAsk = askOrders.entrySet().iterator();
-        Iterator<Map.Entry<Double, LinkedList<Order>>> iterBid = bidOrders.entrySet().iterator();
+        Iterator<Map.Entry<Float, LinkedList<Order>>> iterAsk = askOrders.entrySet().iterator();
+        Iterator<Map.Entry<Float, LinkedList<Order>>> iterBid = bidOrders.entrySet().iterator();
         for (int i = 0; i < askOrders.size() || i < bidOrders.size(); i++) {
             System.out.println(orderString(iterBid) + " - " + orderString(iterAsk));
         }
@@ -187,11 +186,11 @@ public class OrderBook {
      * @param iterator - iterator.
      * @return string.
      */
-    private String orderString(Iterator<Map.Entry<Double, LinkedList<Order>>> iterator) {
+    private String orderString(Iterator<Map.Entry<Float, LinkedList<Order>>> iterator) {
         StringBuilder str = new StringBuilder();
         if (iterator.hasNext()) {
-            Map.Entry<Double, LinkedList<Order>> entry = iterator.next();
-            Double price = entry.getKey();
+            Map.Entry<Float, LinkedList<Order>> entry = iterator.next();
+            Float price = entry.getKey();
             LinkedList<Order> order = entry.getValue();
             Integer bidVolume = getAgregatedVolume(order);
             str.append(bidVolume).append("@").append(price);

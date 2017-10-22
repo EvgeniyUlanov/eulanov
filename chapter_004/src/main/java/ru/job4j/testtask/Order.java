@@ -10,7 +10,7 @@ public class Order {
     /** operation.*/
     private String operation;
     /** price.*/
-    private Double price;
+    private float price;
     /** volume.*/
     private Integer volume;
 
@@ -21,7 +21,7 @@ public class Order {
      * @param price - price.
      * @param volume - volume.
      */
-    public Order(int orderId, String operation, Double price, Integer volume) {
+    public Order(int orderId, String operation, float price, Integer volume) {
         this.orderId = orderId;
         this.operation = operation;
         this.price = price;
@@ -48,7 +48,7 @@ public class Order {
      * method getPrice.
      * @return price.
      */
-    public Double getPrice() {
+    public float getPrice() {
         return price;
     }
 

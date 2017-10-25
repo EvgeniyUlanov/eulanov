@@ -75,13 +75,11 @@ public class Order {
      */
     @Override
     public boolean equals(Object o) {
-        boolean result;
+        boolean result = false;
         if (o == this) {
             result = true;
-        } else if (o instanceof Order) {
-            result = ((Order) o).orderId == this.orderId;
         } else {
-            result = false;
+            result = o instanceof Order && ((Order) o).orderId == this.orderId;
         }
         return result;
     }

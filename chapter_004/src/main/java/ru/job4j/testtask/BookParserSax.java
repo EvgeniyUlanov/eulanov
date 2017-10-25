@@ -16,7 +16,14 @@ import java.util.TreeMap;
  * class BookParserSax.
  */
 public class BookParserSax {
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
+
+    /**
+     * method init.
+     * @throws ParserConfigurationException - parser exception.
+     * @throws SAXException - sax exception.
+     * @throws IOException - input exception.
+     */
+    private void init() throws ParserConfigurationException, SAXException, IOException {
         File file = new File("orders.xml");
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
@@ -24,27 +31,66 @@ public class BookParserSax {
         parser.parse(file, handler);
         for (Map.Entry<String, OrderBook> entry : handler.getResult().entrySet()) {
             entry.getValue().show();
+            System.out.println("");
         }
+    }
+
+    /**
+     * method main.
+     * @param args - arguments.
+     * @throws ParserConfigurationException - parser exception.
+     * @throws SAXException - sax exception.
+     * @throws IOException - input exception.
+     */
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+        long currentTime = System.currentTimeMillis();
+        new BookParserSax().init();
+        long endTime = System.currentTimeMillis();
+        System.out.println(String.format("Parsing time - %s seconds.", (endTime - currentTime) / 1000));
     }
 }
 
+/**
+ * class MyHandler.
+ */
 class MyHandler extends DefaultHandler {
-
+    /** order books container.*/
     private TreeMap<String, OrderBook> orderbooks = new TreeMap<>();
 
+    /**
+     * method getResult.
+     * @return book container.
+     */
     public TreeMap<String, OrderBook> getResult() {
         return orderbooks;
     }
+
+    /**
+     * method startDocument.
+     * @throws SAXException - sax exception.
+     */
     @Override
     public void startDocument() throws SAXException {
         System.out.println("Start of parsing");
     }
 
+    /**
+     * method endDocument.
+     * @throws SAXException - sax exception.
+     */
     @Override
     public void endDocument() throws SAXException {
         System.out.println("End of parsing");
     }
 
+    /**
+     * method startElement.
+     * @param uri - uri.
+     * @param localName - local name.
+     * @param qName - name of element.
+     * @param attributes - attributes of element.
+     * @throws SAXException - sax exception.
+     */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (qName.equals("AddOrder")) {
@@ -61,11 +107,10 @@ class MyHandler extends DefaultHandler {
                 orderBook.add(order);
                 orderbooks.put(bookName, orderBook);
             }
-            System.out.println(id);
-        } else if(qName.equals("DeleteOrder")) {
-            //String bookName = attributes.getValue(0);
-            //Integer id = Integer.valueOf(attributes.getValue(1));
-            //orderbooks.get(bookName).delete(id);
+        } else if (qName.equals("DeleteOrder")) {
+            String bookName = attributes.getValue(0);
+            Integer id = Integer.valueOf(attributes.getValue(1));
+            orderbooks.get(bookName).delete(id);
         }
     }
 }

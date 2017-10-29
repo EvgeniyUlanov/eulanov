@@ -54,6 +54,10 @@ public class BookParserSax {
  * class MyHandler.
  */
 class MyHandler extends DefaultHandler {
+    /** const addorder.*/
+    private static final String ADD = "AddOrder";
+    /** const deleteorder.*/
+    private static final String DELETE = "DeleteOrder";
     /** order books container.*/
     private TreeMap<String, OrderBook> orderbooks = new TreeMap<>();
 
@@ -93,23 +97,24 @@ class MyHandler extends DefaultHandler {
      */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equals("AddOrder")) {
-            String bookName = attributes.getValue(0);
-            Integer id = Integer.valueOf(attributes.getValue(4));
-            String operationType = attributes.getValue(1);
-            Float price = Float.valueOf(attributes.getValue(2));
-            Integer volume = Integer.valueOf(attributes.getValue(3));
+        if (qName.equals(ADD)) {
+            String bookName = attributes.getValue("book");
+            Integer id = Integer.valueOf(attributes.getValue("orderId"));
+            String operationType = attributes.getValue("operation");
+            Float price = Float.valueOf(attributes.getValue("price"));
+            Integer volume = Integer.valueOf(attributes.getValue("volume"));
             Order order = new Order(id, operationType, price, volume);
-            if (orderbooks.containsKey(bookName)) {
-                orderbooks.get(bookName).add(order);
+            OrderBook orderBook = orderbooks.get(bookName);
+            if (orderBook != null) {
+                orderBook.add(order);
             } else {
-                OrderBook orderBook = new OrderBook(bookName);
+                orderBook = new OrderBook(bookName);
                 orderBook.add(order);
                 orderbooks.put(bookName, orderBook);
             }
-        } else if (qName.equals("DeleteOrder")) {
-            String bookName = attributes.getValue(0);
-            Integer id = Integer.valueOf(attributes.getValue(1));
+        } else if (qName.equals(DELETE)) {
+            String bookName = attributes.getValue("book");
+            Integer id = Integer.valueOf(attributes.getValue("orderId"));
             orderbooks.get(bookName).delete(id);
         }
     }

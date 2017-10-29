@@ -12,7 +12,10 @@ import java.util.Iterator;
  * class OrderBook.
  */
 public class OrderBook {
-
+    /** constant type of order sell.*/
+    private static final String SELL = "SELL";
+    /** constant type of order buy.*/
+    private static final String BUY = "BUY";
     /** orderbook name.*/
     private String orderBookName;
     /** comparator.*/
@@ -40,11 +43,11 @@ public class OrderBook {
      * @param orderToAdd - order.
      */
     public void add(Order orderToAdd) {
-        if (orderToAdd.getOperation().equals("SELL")) {
+        if (orderToAdd.getOperation().equals(SELL)) {
             if (adjustSell(orderToAdd) != null) {
                 addToMap(askOrders, orderToAdd);
             }
-        } else if (orderToAdd.getOperation().equals("BUY")) {
+        } else if (orderToAdd.getOperation().equals(BUY)) {
             if (adjustBuy(orderToAdd) != null) {
                 addToMap(bidOrders, orderToAdd);
             }

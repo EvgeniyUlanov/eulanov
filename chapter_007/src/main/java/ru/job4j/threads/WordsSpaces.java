@@ -105,7 +105,10 @@ class SpacesCalc implements Runnable {
     private int spacesCalc(String str) {
         int result = 0;
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ' ' && !Thread.currentThread().isInterrupted()) {
+            if (Thread.currentThread().isInterrupted()) {
+                break;
+            }
+            if (str.charAt(i) == ' ') {
                 result++;
             }
         }

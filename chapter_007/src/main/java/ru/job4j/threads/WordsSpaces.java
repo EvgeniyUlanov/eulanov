@@ -64,6 +64,8 @@ class WordsCalc implements Runnable {
                 if (i == str.length() - 1 && j != i) {
                     numberOfWords++;
                 }
+            } else {
+                break;
             }
         }
         return numberOfWords;

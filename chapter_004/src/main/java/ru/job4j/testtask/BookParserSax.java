@@ -104,14 +104,16 @@ class MyHandler extends DefaultHandler {
             Float price = Float.valueOf(attributes.getValue("price"));
             Integer volume = Integer.valueOf(attributes.getValue("volume"));
             Order order = new Order(id, operationType, price, volume);
-            OrderBook orderBook = orderbooks.get(bookName);
-            if (orderBook != null) {
+            OrderBook orderBook = new OrderBook(bookName);
+            orderbooks.putIfAbsent(bookName, orderBook);
+            orderbooks.get(bookName).add(order);
+            /*if (orderBook != null) {
                 orderBook.add(order);
             } else {
                 orderBook = new OrderBook(bookName);
                 orderBook.add(order);
                 orderbooks.put(bookName, orderBook);
-            }
+            }*/
         } else if (qName.equals(DELETE)) {
             String bookName = attributes.getValue("book");
             Integer id = Integer.valueOf(attributes.getValue("orderId"));

@@ -1,5 +1,8 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -7,12 +10,13 @@ import java.util.Iterator;
  * class SimpleArrayList.
  * @param <E> - type of elements.
  */
+@ThreadSafe
 public class SimpleArrayList<E> implements Iterable<E> {
 
     /** array to keep values.*/
-    private Object[] data;
+    @GuardedBy("this") private Object[] data;
     /** size of values.*/
-    private int size;
+    @GuardedBy("this") private int size;
 
     /**
      * default constructor.
@@ -34,10 +38,12 @@ public class SimpleArrayList<E> implements Iterable<E> {
      * @param value - value.
      */
     public void add(E value) {
-        if (size >= data.length) {
-            increaseSize();
+        synchronized (this) {
+            if (size >= data.length) {
+                increaseSize();
+            }
+            data[size++] = value;
         }
-        data[size++] = value;
     }
 
     /**
@@ -54,7 +60,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
      * @return iterator.
      */
     @Override
-    public Iterator<E> iterator() {
+    public synchronized Iterator<E> iterator() {
         return new Iterator<E>() {
 
             private int position;

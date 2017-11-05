@@ -1,14 +1,18 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Iterator;
 
 /**
  * SimpleLinkedList.
  * @param <T> - type.
  */
+@ThreadSafe
 public class SimpleLinkedList<T> implements Iterable<T> {
     /** size of list.*/
-    private int size;
+    @GuardedBy("this") private int size;
     /** first node.*/
     private Node<T> firstNode;
     /** last node.*/
@@ -19,16 +23,18 @@ public class SimpleLinkedList<T> implements Iterable<T> {
      * @param item - item.
      */
     public void add(T item) {
-        Node<T> newNode = new Node<>(item);
-        if (firstNode == null) {
-            lastNode = newNode;
-            firstNode = lastNode;
-        } else {
-            lastNode.next = newNode;
-            newNode.previous = lastNode;
-            lastNode = newNode;
+        synchronized (this) {
+            Node<T> newNode = new Node<>(item);
+            if (firstNode == null) {
+                lastNode = newNode;
+                firstNode = lastNode;
+            } else {
+                lastNode.next = newNode;
+                newNode.previous = lastNode;
+                lastNode = newNode;
+            }
+            size++;
         }
-        size++;
     }
 
     /**

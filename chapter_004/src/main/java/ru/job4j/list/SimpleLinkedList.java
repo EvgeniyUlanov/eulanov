@@ -43,16 +43,18 @@ public class SimpleLinkedList<T> implements Iterable<T> {
      * @return value.
      */
     public T get(int index) {
-        if (index < size) {
-            Node<T> current = firstNode;
-            for (int i = 0; i <= index; i++) {
-                if (i == index) {
-                    return current.item;
+        synchronized (this) {
+            if (index < size) {
+                Node<T> current = firstNode;
+                for (int i = 0; i <= index; i++) {
+                    if (i == index) {
+                        return current.item;
+                    }
+                    current = current.next;
                 }
-                current = current.next;
             }
+            return null;
         }
-        return null;
     }
 
     /**

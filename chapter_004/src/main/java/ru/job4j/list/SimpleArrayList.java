@@ -52,7 +52,9 @@ public class SimpleArrayList<E> implements Iterable<E> {
      * @return value.
      */
     public E get(int index) {
-        return (E) data[index];
+        synchronized (this) {
+            return (E) data[index];
+        }
     }
 
     /**

@@ -40,7 +40,9 @@ public class UserStorage {
      * @return user.
      */
     public User findUser(int id) {
-        return storage.get(id);
+        synchronized (this) {
+            return storage.get(id);
+        }
     }
 
     /**

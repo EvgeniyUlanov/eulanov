@@ -15,7 +15,7 @@ public class Count {
         count++;
     }
 
-    public long getCount() {
+    public synchronized long getCount() {
         return count;
     }
 }

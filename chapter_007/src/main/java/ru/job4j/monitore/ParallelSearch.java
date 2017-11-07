@@ -13,10 +13,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * class ParallelSearch.
  */
 public class ParallelSearch {
-
+    /** constant text to find.*/
     private static final String TEXT = "@Test";
+    /** constant directory where need to find.*/
     private static final Path ROOT = Paths.get("C:\\projects\\eulanov\\");
 
+    /**
+     * main method.
+     * @param args - args.
+     * @throws IOException - IO exception.
+     * @throws InterruptedException - Interrupt exception.
+     */
     public static void main(String[] args) throws IOException, InterruptedException {
         List<String> exts = new ArrayList<>(Arrays.asList("java"));
         List<Path> result = startSearch(ROOT, TEXT, exts);
@@ -26,6 +33,15 @@ public class ParallelSearch {
         }
     }
 
+    /**
+     * method startSearch.
+     * @param root - directory where need to find.
+     * @param text - text to find.
+     * @param exts - extentioins of file where need to find text.
+     * @return list of paths.
+     * @throws IOException - IO exception.
+     * @throws InterruptedException - Interrupt exception.
+     */
     private static List<Path> startSearch(Path root, String text, List<String> exts)
             throws IOException, InterruptedException {
 
@@ -63,17 +79,28 @@ public class ParallelSearch {
  * class MyThread.
  */
 class SearchThread extends Thread {
-
+    /** path.*/
     private Path path;
+    /** text.*/
     private String text;
+    /** list.*/
     private List<Path> list;
 
-    public SearchThread(Path path, List<Path> list, String text) {
+    /**
+     * constructor.
+     * @param path - path.
+     * @param list - list.
+     * @param text - text.
+     */
+    SearchThread(Path path, List<Path> list, String text) {
         this.path = path;
         this.text = text;
         this.list = list;
     }
 
+    /**
+     * method run.
+     */
     @Override
     public void run() {
         try {

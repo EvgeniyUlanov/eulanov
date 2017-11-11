@@ -35,8 +35,10 @@ public class ThreadPool {
      * @param work- work to add.
      * @throws InterruptedException - Interrupted exception.
      */
-    public void add(Work work) throws InterruptedException{
-        if (isStoped) throw new IllegalStateException();
+    public void add(Work work) throws InterruptedException {
+        if (isStoped) {
+            throw new IllegalStateException();
+        }
         taskQueue.put(work);
     }
 
@@ -96,7 +98,7 @@ class SimpleThread extends Thread {
 /**
  * class Work.
  */
-class Work{
+class Work {
     /** name of work.*/
     private String name;
 

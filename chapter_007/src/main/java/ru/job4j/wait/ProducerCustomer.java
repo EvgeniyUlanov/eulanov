@@ -82,12 +82,12 @@ class Producer extends Thread {
     public void run() {
         try {
             int i = 1;
-            while(i <= 10) {
+            while (i <= 10) {
                 producerCustomer.produce(i);
                 i++;
                 Thread.sleep(100);
             }
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Tread Producer was Interrupted.");
         }
     }
@@ -119,7 +119,7 @@ class Customer extends Thread {
             while (i++ < 10) {
                 producerCustomer.consume();
             }
-        } catch(InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Tread Customer was Interrupted.");
         }
     }

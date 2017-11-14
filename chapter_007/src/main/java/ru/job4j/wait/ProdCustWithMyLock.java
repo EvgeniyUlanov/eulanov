@@ -2,13 +2,12 @@ package ru.job4j.wait;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ProdCustWithMyLock extends ProducerCustomer {
 
     /** product.*/
     private boolean product = false;
-    /** monitore.*/
+    /** monitor.*/
     private Lock lock = new MyLock();
     private Condition cond = lock.newCondition();
 
@@ -32,7 +31,6 @@ public class ProdCustWithMyLock extends ProducerCustomer {
         } finally {
             lock.unlock();
         }
-        System.out.println("");
     }
 
     /**
@@ -41,6 +39,9 @@ public class ProdCustWithMyLock extends ProducerCustomer {
      */
     public void consume() throws InterruptedException {
         lock.lock();
+        if (Thread.currentThread().isInterrupted()) {
+            throw new InterruptedException();
+        }
         try {
             while (!product) {
                 cond.await();
@@ -51,7 +52,26 @@ public class ProdCustWithMyLock extends ProducerCustomer {
         } finally {
             lock.unlock();
         }
+    }
+
+    /**
+     * method start.
+     * @throws InterruptedException - InterruptedException.
+     */
+    public static void start() throws InterruptedException {
+        ProducerCustomer producerCustomer = new ProdCustWithMyLock();
+        Thread producer = new Producer(producerCustomer);
+        Thread customer = new Customer(producerCustomer);
+        producer.setName("Producer");
+        customer.setName("Customer");
+        producer.start();
+        customer.start();
+        Thread.sleep(400);
         System.out.println("");
+        System.out.println("Starting interrupt.");
+        producer.interrupt();
+        customer.interrupt();
+        Thread.sleep(100);
     }
 
     /**
@@ -60,17 +80,12 @@ public class ProdCustWithMyLock extends ProducerCustomer {
      * @throws InterruptedException - InterruptException.
      */
     public static void main(String[] args) throws InterruptedException {
-        ProducerCustomer producerCustomer = new ProdCustWithMyLock();
-        Thread producer = new Producer(producerCustomer);
-        Thread customer = new Customer(producerCustomer);
-        producer.setName("Producer");
-        customer.setName("Customer");
-        producer.start();
-        customer.start();
-        Thread.sleep(500);
-        System.out.println("Starting interrupt.");
-        producer.interrupt();
-        customer.interrupt();
+        System.out.println("Start.");
+        try {
+            start();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread was interrupted.");
+        }
         System.out.println("Finish.");
     }
 }

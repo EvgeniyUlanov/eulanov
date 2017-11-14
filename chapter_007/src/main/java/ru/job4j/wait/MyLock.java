@@ -13,6 +13,7 @@ public class MyLock implements Lock {
     private final Object lock = new Object();
     /** boolean isLocked.*/
     private boolean isLocked;
+    /** myLock.*/
     private MyLock myLock = this;
 
     /**
@@ -24,7 +25,6 @@ public class MyLock implements Lock {
         synchronized (lock) {
             while (isLocked && !interrupt) {
                 try {
-                    System.out.println("Thread is waiting " + Thread.currentThread().getName());
                     lock.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Interrupt exception - " + Thread.currentThread().getName());
@@ -32,10 +32,8 @@ public class MyLock implements Lock {
                 }
             }
             if (interrupt) {
-                System.out.println("Thread self interrupt " + Thread.currentThread().getName());
                 Thread.currentThread().interrupt();
             } else {
-                System.out.println("Was locked by " + Thread.currentThread().getName());
                 isLocked = true;
             }
         }
@@ -106,7 +104,6 @@ public class MyLock implements Lock {
     public void unlock() {
         synchronized (lock) {
             isLocked = false;
-            System.out.println("Unlock by " + Thread.currentThread().getName());
             lock.notifyAll();
         }
     }
@@ -128,7 +125,6 @@ public class MyLock implements Lock {
                         throw new InterruptedException();
                     }
                     myLock.isLocked = false;
-                    System.out.println("Unlocked by " + Thread.currentThread().getName());
                     lock.wait();
                 }
             }
@@ -175,6 +171,7 @@ public class MyLock implements Lock {
             @Override
             public void signal() {
                 wasSignal = true;
+                myLock.isLocked = false;
                 lock.notify();
             }
 
@@ -182,6 +179,7 @@ public class MyLock implements Lock {
             public void signalAll() {
                 synchronized (lock) {
                     wasSignal = true;
+                    myLock.isLocked = false;
                     lock.notifyAll();
                 }
             }

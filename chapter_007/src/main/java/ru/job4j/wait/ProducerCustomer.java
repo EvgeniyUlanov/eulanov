@@ -17,11 +17,14 @@ public class ProducerCustomer {
      */
     public void produce(int prod) throws InterruptedException {
         synchronized (lock) {
+            System.out.println("Locked by " + Thread.currentThread().getName());
             while (product) {
+                System.out.println("Thread wait " + Thread.currentThread().getName());
                 lock.wait();
             }
             product = true;
             System.out.println(String.format("Product %s was produced.", prod));
+            System.out.println("Unlocked by " + Thread.currentThread().getName());
             lock.notifyAll();
         }
     }
@@ -32,11 +35,14 @@ public class ProducerCustomer {
      */
     public void consume() throws InterruptedException {
         synchronized (lock) {
+            System.out.println("Locked by " + Thread.currentThread().getName());
             while (!product) {
+                System.out.println("Thread wait " + Thread.currentThread().getName());
                 lock.wait();
             }
             product = false;
             System.out.println("Product was consumed.");
+            System.out.println("Unlocked by " + Thread.currentThread().getName());
             lock.notifyAll();
         }
     }
@@ -50,9 +56,11 @@ public class ProducerCustomer {
         ProducerCustomer producerCustomer = new ProducerCustomer();
         Thread producer = new Producer(producerCustomer);
         Thread customer = new Customer(producerCustomer);
+        producer.setName("Producer");
+        customer.setName("Customer");
         producer.start();
         customer.start();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         producer.interrupt();
         customer.interrupt();
         System.out.println("Finish.");

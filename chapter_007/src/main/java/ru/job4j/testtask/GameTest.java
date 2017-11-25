@@ -4,6 +4,8 @@ package ru.job4j.testtask;
  * class GameTest.
  */
 public class GameTest {
+
+
     /**
      * main metod.
      * @param args - args.

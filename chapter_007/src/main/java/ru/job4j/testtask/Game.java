@@ -1,5 +1,7 @@
 package ru.job4j.testtask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -9,24 +11,30 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Game {
     /** board.*/
     private final ReentrantLock[][] board;
+    /** mask of field - 0 empty cell, 1 - wall, 2 - player, 3 - enemy.*/
+    private final static int[][] MASK = {
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 0, 0, 0, 0, 2, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+            {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 0, 3, 0, 1},
+            {1, 0, 3, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
     /**
-     * default constructor.
+     * constructor.
      */
     public Game() {
-        this(10, 10);
-    }
-
-    /**
-     * constructor with rows and columns.
-     * @param x - x rows.
-     * @param y - y columns.
-     */
-    public Game(int x, int y) {
-        board = new ReentrantLock[y][x];
+        board = new ReentrantLock[MASK.length][MASK[0].length];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = new ReentrantLock();
+                if (MASK[i][j] == 1) {
+                    board[i][j].lock();
+                }
             }
         }
     }
@@ -36,65 +44,26 @@ public class Game {
      * @throws InterruptedException - InterruptedException.
      */
     public void start() throws InterruptedException {
-        Thread thread = new Thread(new PlayerThread(board));
-        thread.start();
-        Thread.sleep(5000);
-        thread.interrupt();
-    }
-}
-
-/**
- * class PlayerThread.
- */
-class PlayerThread implements Runnable {
-    /** random.*/
-    private Random rn = new Random();
-    /** boolean isStop.*/
-    private boolean isStop;
-    /** board.*/
-    private ReentrantLock[][] board;
-
-    /**
-     * constructor.
-     * @param board - board.
-     */
-    public PlayerThread(ReentrantLock[][] board) {
-        this.board = board;
-    }
-
-    /**
-     * method run.
-     */
-    @Override
-    public void run() {
-        Player player = new Player(board);
-        while (!isStop && !Thread.currentThread().isInterrupted()) {
-            try {
-                int newX;
-                int newY;
-                int upStraight = rn.nextInt(2);
-                int forwardBack = rn.nextInt(2);
-                if (upStraight == 1) {
-                    newY = player.getPosY();
-                    if (forwardBack == 1) {
-                        newX = player.getPosX() + 1;
-                    } else {
-                        newX = player.getPosX() - 1;
-                    }
-                } else {
-                    newX = player.getPosX();
-                    if (forwardBack == 1) {
-                        newY = player.getPosY() + 1;
-                    } else {
-                        newY = player.getPosY() - 1;
-                    }
+        Thread player = null;
+        List<Thread> enemies = new ArrayList<>();
+        for (int i = 0; i < MASK.length; i++) {
+            for (int j = 0; j < MASK[i].length; j++) {
+                if (MASK[i][j] == 2) {
+                    player = new Thread(new PlayerThread(new Character(board, j, i)));
+                    player.setName("Player");
                 }
-                player.move(newX, newY);
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                System.out.println("Is stop.");
-                isStop = true;
+                if (MASK[i][j] == 3) {
+                    Thread enemy = new Thread(new EnemyThread(new Character(board, j, i)));
+                    enemy.setName("Enemy" + i);
+                    enemies.add(enemy);
+                }
             }
+        }
+        if (player != null) {
+            player.start();
+        }
+        for (Thread thread : enemies) {
+            thread.start();
         }
     }
 }

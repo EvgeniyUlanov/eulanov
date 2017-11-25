@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * class Player.
  */
-public class Player {
+public class Character {
     /** x position.*/
     private int posX;
     /** y position.*/
@@ -18,11 +18,10 @@ public class Player {
      * constructor.
      * @param board - board.
      */
-    public Player(ReentrantLock[][] board) {
+    public Character(ReentrantLock[][] board, int x, int y) {
         this.board = board;
-        posY = board.length / 2;
-        posX = board[posY].length / 2;
-        this.board[posY][posX].lock();
+        posY = y;
+        posX = x;
     }
 
     /**
@@ -56,9 +55,13 @@ public class Player {
                 board[posY][posX].unlock();
                 posX = x;
                 posY = y;
+                System.out.format("%s was moved to x - %s, y - %s\n", Thread.currentThread().getName(), posX, posY);
             }
         }
-        System.out.format("Was moved to x - %s, y - %s\n", posX, posY);
         return result;
+    }
+
+    public void blockPos() {
+        this.board[posY][posX].lock();
     }
 }

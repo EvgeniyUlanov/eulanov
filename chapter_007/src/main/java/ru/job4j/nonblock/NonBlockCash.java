@@ -42,8 +42,8 @@ public class NonBlockCash {
      */
     public void update(Model model) {
         Integer id = model.getId();
-        int version = data.get(id).getVersion();
         data.computeIfPresent(id, (key, oldModel) -> {
+            int version = data.get(id).getVersion();
             if (version != model.getVersion()) {
                 throw new OptimisticException("Exception");
             }

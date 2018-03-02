@@ -22,8 +22,10 @@
       <module>chapter_004</module>
       <module>chapter_007</module>
 	  <module>Task_Game</module>
+      <module>chapter_008</module>
+        <module>chapter_009</module>
 
-	</modules>
+    </modules>
 
 	<dependencies>
         <dependency>

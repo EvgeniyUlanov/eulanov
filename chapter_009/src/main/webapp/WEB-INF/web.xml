@@ -8,8 +8,42 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+
+    <servlet>
+        <servlet-name>AddNewUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.AddNewUserServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UpdateUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.UpdateUserServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.DeleteUserServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUserServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AddNewUserServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
 </web-app>

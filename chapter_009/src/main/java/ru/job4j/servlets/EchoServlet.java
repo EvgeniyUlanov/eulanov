@@ -1,5 +1,6 @@
 package ru.job4j.servlets;
 
+import ru.job4j.connectionpool.DBConnectionPool;
 import ru.job4j.users.User;
 import ru.job4j.users.UserStore;
 
@@ -10,13 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 public class EchoServlet extends HttpServlet {
 
-//    private static final Logger LOGGER  = LoggerFactory.getLogger(EchoServlet.class);
     private UserStore userStore;
-    private final static String URL = "jdbc:postgresql://localhost:5432/my_db";
 
     /**
      * method add new User: use name, login, email as parameter.
@@ -27,17 +25,52 @@ public class EchoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String login = req.getParameter("login");
-        String email = req.getParameter("email");
-        User user = new User(name, login, email);
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        if (userStore.addUser(user)) {
-            writer.append("Add new user ").append(name);
-        } else {
-            writer.append("Cannot add user");
+        StringBuilder str = new StringBuilder();
+        str.append("<table>");
+            str.append("<tr>"
+                    + "<th>user name</th>"
+                    + "<th>login</th>"
+                    + "<th>email</th>"
+                    + "<th>date</th>"
+                    + "</tr>");
+        for (User user : userStore.getAll()) {
+            str.append("<tr>"
+                    + "<th>" + user.getName() + "</th>"
+                    + "<th>" + user.getLogin() + "</th>"
+                    + "<th>" + user.getEmail() + "</th>"
+                    + "<th>" + user.getDate().toString() + "</th>"
+                    + "</tr>");
         }
+        str.append("</table>");
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        writer.append("<!DOCTYPE html>"
+                + "<html lang=\"en\">"
+                + "<head>"
+                + "<body>"
+                    + "<form action='" + req.getContextPath() + "/add' method='post'>"
+                    + "Name : <input type='text' name='name'/>"
+                    + "Login : <input type='text' name='login'/>"
+                    + "Email : <input type='text' name='email'/>"
+                    + "<input type='submit' value='add new user'>"
+                    + "</form>"
+                    + "<form action='" + req.getContextPath() + "/update' method='post'>"
+                    + "Name : <input type='text' name='name'/>"
+                    + "Login : <input type='text' name='login'/>"
+                    + "Email : <input type='text' name='email'/>"
+                    + "<input type='submit' value='update user'>"
+                    + "</form>"
+                    + "<form action='" + req.getContextPath() + "/delete' method='post'>"
+                    + "Name : <input type='text' name='name'/>"
+                    + "<input type='submit' value='delete user'>"
+                    + "</form>"
+                    + "<form action='" + req.getContextPath() + "/echo' method='post'>"
+                    + "<input type='submit' value='show all users'/><br/>"
+                    + "</form>"
+                    + str.toString()
+                + "</body>"
+                + "</head>"
+                + "</html>");
         writer.flush();
     }
 
@@ -50,17 +83,7 @@ public class EchoServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        List<User> userList = userStore.getAll();
-        if (userList != null && userList.size() != 0) {
-            for (User user : userList) {
-                writer.append(user.toString()).append("\n");
-            }
-        } else {
-            writer.append("Nothing to show");
-        }
-        writer.flush();
+        doGet(req, resp);
     }
 
     /**
@@ -115,7 +138,6 @@ public class EchoServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         userStore = UserStore.getUserStore();
-        userStore.connectToDb(URL, "postgres", "784512963");
         userStore.createTable();
     }
 
@@ -125,6 +147,6 @@ public class EchoServlet extends HttpServlet {
     @Override
     public void destroy() {
         super.destroy();
-        userStore.closeConnection();
+        DBConnectionPool.closeConnection();
     }
 }

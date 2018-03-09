@@ -1,6 +1,7 @@
 package ru.job4j.users;
 
 import org.junit.*;
+import ru.job4j.connectionpool.DBConnectionPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import static org.hamcrest.core.Is.is;
 public class UserStoreTest {
 
     private static UserStore userStore;
-    private final static String URL = "jdbc:postgresql://localhost:5432/my_db";
 
     /**
      * method init connection to db.
@@ -18,7 +18,6 @@ public class UserStoreTest {
     @BeforeClass
     public static void createConnectionAndTable() {
         userStore = UserStore.getUserStore();
-        userStore.connectToDb(URL, "postgres", "784512963");
     }
 
     @Before
@@ -31,7 +30,7 @@ public class UserStoreTest {
      */
     @AfterClass
     public static void closeConnection() {
-        userStore.closeConnection();
+        DBConnectionPool.closeConnection();
     }
 
     /**

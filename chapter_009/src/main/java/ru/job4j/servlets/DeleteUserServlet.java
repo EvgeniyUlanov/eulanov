@@ -1,6 +1,5 @@
 package ru.job4j.servlets;
 
-import ru.job4j.users.User;
 import ru.job4j.users.UserStore;
 
 import javax.servlet.ServletException;
@@ -17,6 +16,6 @@ public class DeleteUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         userStore.deleteUser(name);
-        req.getRequestDispatcher("/echo").forward(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }

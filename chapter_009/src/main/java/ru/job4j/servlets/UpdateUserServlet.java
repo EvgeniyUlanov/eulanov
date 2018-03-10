@@ -20,6 +20,6 @@ public class UpdateUserServlet extends HttpServlet {
         String email = req.getParameter("email");
         User user = new User(name, login, email);
         userStore.updateUser(user);
-        req.getRequestDispatcher("/echo").forward(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }

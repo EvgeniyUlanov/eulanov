@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class UpdateUserServlet extends HttpServlet {
 
-    private UserStore userStore = UserStore.getUserStore();
+    private UserStore userStore = UserStore.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,6 +20,6 @@ public class UpdateUserServlet extends HttpServlet {
         String email = req.getParameter("email");
         User user = new User(name, login, email);
         userStore.updateUser(user);
-        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

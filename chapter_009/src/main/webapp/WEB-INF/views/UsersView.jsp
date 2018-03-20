@@ -1,27 +1,28 @@
 <%@ page import="ru.job4j.users.User" %>
 <%@ page import="ru.job4j.users.UserStore" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Using Servlets</title>
 </head>
 <body>
-
-<form action="<%=request.getContextPath()%>/add" method="post">
+<form action="${pageContext.servletContext.contextPath}/add" method="post">
     Name : <input name="name"/>
     Login : <input name="login"/>
     Email : <input name="email"/>
     <input type="submit" value="add new user">
 </form>
 
-<form action="<%=request.getContextPath()%>/update" method='post'>
+<form action="${pageContext.servletContext.contextPath}/update" method='post'>
     Name : <input name='name'/>
     Login : <input name='login'/>
     Email : <input name='email'/>
     <input type='submit' value='update user'>
 </form>
 
-<form action="<%=request.getContextPath()%>/delete" method='post'>
+<form action="${pageContext.servletContext.contextPath}/delete" method='post'>
     Name : <input name='name'/>
     <input type='submit' value='delete user'>
 </form>
@@ -33,14 +34,15 @@
         <th>email</th>
         <th>creation date</th>
     </tr>
-    <% for (User user : UserStore.getUserStore().getAll()) {%>
-    <tr>
-        <th><%=user.getName()%></th>
-        <th><%=user.getLogin()%></th>
-        <th><%=user.getEmail()%></th>
-        <th><%=user.getDate().toString()%></th>
-    </tr>
-    <% } %>
+
+    <c:forEach var="user" items="${users}">
+        <tr>
+            <th><c:out value="${user.name}"></c:out></th>
+            <th><c:out value="${user.login}"></c:out></th>
+            <th><c:out value="${user.email}"></c:out></th>
+            <th><c:out value="${user.date.toString}"></c:out></th>
+        </tr>
+    </c:forEach>
 </table>
 
 </body>

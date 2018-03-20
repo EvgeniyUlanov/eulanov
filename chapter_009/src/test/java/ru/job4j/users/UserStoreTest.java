@@ -17,7 +17,7 @@ public class UserStoreTest {
      */
     @BeforeClass
     public static void createConnectionAndTable() {
-        userStore = UserStore.getUserStore();
+        userStore = UserStore.getInstance();
     }
 
     @Before

@@ -10,12 +10,12 @@ import java.io.IOException;
 
 public class DeleteUserServlet extends HttpServlet {
 
-    private UserStore userStore = UserStore.getUserStore();
+    private UserStore userStore = UserStore.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         userStore.deleteUser(name);
-        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

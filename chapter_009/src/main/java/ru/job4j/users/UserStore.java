@@ -25,7 +25,7 @@ public class UserStore {
      * method return instance of user store.
      * @return - UserStore.
      */
-    public static UserStore getUserStore() {
+    public static UserStore getInstance() {
         return USER_STORE;
     }
 
@@ -51,10 +51,10 @@ public class UserStore {
      */
     public synchronized boolean addUser(User user) {
         boolean result = false;
-        User userToCheck = UserStore.getUserStore().getUser(user.getName());
+        User userToCheck = UserStore.getInstance().getUser(user.getName());
         if (userToCheck == null) {
             try (Connection conn = DBConnectionPool.getDataSource().getConnection();
-                 PreparedStatement st = conn.prepareStatement("INSERT INTO Users VALUES (?, ?, ?, current_timestamp)")) {
+                 PreparedStatement st = conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?, current_timestamp)")) {
                 st.setString(1, user.getName());
                 st.setString(2, user .getLogin());
                 st.setString(3, user.getEmail());

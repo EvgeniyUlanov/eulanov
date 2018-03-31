@@ -37,10 +37,10 @@
 
     <c:forEach var="user" items="${users}">
         <tr>
-            <th><c:out value="${user.name}"></c:out></th>
-            <th><c:out value="${user.login}"></c:out></th>
-            <th><c:out value="${user.email}"></c:out></th>
-            <th><c:out value="${user.date.toString}"></c:out></th>
+            <th><c:out value="${user.name}"/></th>
+            <th><c:out value="${user.login}"/></th>
+            <th><c:out value="${user.email}"/></th>
+            <th><c:out value="${user.date}"/></th>
         </tr>
     </c:forEach>
 </table>

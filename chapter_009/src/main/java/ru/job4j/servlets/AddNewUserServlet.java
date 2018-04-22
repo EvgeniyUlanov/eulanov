@@ -20,6 +20,8 @@ public class AddNewUserServlet extends HttpServlet {
         if (!name.equals("") && !login.equals("")) {
             String email = req.getParameter("email");
             User user = new User(name, login, email);
+            user.setPassword(req.getParameter("password"));
+            user.setRole(req.getParameter("role"));
             userStore.addUser(user);
         }
         resp.sendRedirect(String.format("%s/", req.getContextPath()));

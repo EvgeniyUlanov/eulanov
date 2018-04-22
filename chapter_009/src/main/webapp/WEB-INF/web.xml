@@ -51,4 +51,46 @@
         <servlet-name>AddNewUserServlet</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Signin</servlet-name>
+        <servlet-class>ru.job4j.servlets.Signin</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Signin</servlet-name>
+        <url-pattern>/sign</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignOut</servlet-name>
+        <servlet-class>ru.job4j.servlets.SignOut</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignOut</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <jsp-file>/WEB-INF/views/UpdateUser.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/updateUser</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>AutorizationFilter</filter-name>
+        <filter-class>ru.job4j.servlets.AutorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AutorizationFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 </web-app>

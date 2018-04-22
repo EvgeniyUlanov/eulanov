@@ -1,48 +1,49 @@
-<%@ page import="ru.job4j.users.User" %>
-<%@ page import="ru.job4j.users.UserStore" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Using Servlets</title>
+    <title>User page</title>
+    <style>
+        <%@ include file="css/styles.css" %>
+    </style>
 </head>
 <body>
-<form action="${pageContext.servletContext.contextPath}/add" method="post">
-    Name : <input name="name"/>
-    Login : <input name="login"/>
-    Email : <input name="email"/>
-    <input type="submit" value="add new user">
-</form>
+<header>
+    User Page. You are logged as "${currentUser.login}".
+</header>
+<c:set var="user" value="${currentUser}"/>
 
-<form action="${pageContext.servletContext.contextPath}/update" method='post'>
-    Name : <input name='name'/>
-    Login : <input name='login'/>
-    Email : <input name='email'/>
-    <input type='submit' value='update user'>
-</form>
+<fieldset class="userSet">
+    <legend>Settings</legend>
+    Name: <c:out value="${user.name}"/><br/>
+    Login: <c:out value="${user.login}"/><br/>
+    Email: <c:out value="${user.email}"/><br/>
+    Password: <c:out value="${user.password}"/><br/>
+    Role: <c:out value="${user.role}"/><br/>
+    Create Date: <c:out value="${user.date}"/><br/>
+</fieldset>
+<fieldset>
+    <legend>Actions</legend>
+    <form method='post'>
+        <input type="hidden" value="${user.login}" name='login'/>
+        <input type="submit" value='delete user' formaction="${pageContext.servletContext.contextPath}/delete"/>
+    </form>
+    <form method="post">
+        <input type="hidden" value="${user.login}" name="login"/>
+        <input type="hidden" value="${user.name}" name="name"/>
+        <input type="hidden" value="${user.email}" name="email"/>
+        <input type="hidden" value="${user.password}" name="password"/>
+        <input type="submit" value='update user' formaction="${pageContext.servletContext.contextPath}/updateUser"/>
+    </form>
 
-<form action="${pageContext.servletContext.contextPath}/delete" method='post'>
-    Name : <input name='name'/>
-    <input type='submit' value='delete user'>
-</form>
+    <form action="${pageContext.servletContext.contextPath}/signout" method='post'>
+        <input type='submit' value='sign out'/>
+    </form>
+</fieldset>
+
+
 <br/>
-<table style="border: 1px solid black;" cellpadding="1" cellspacing="1" border="1">
-    <tr>
-        <th>name</th>
-        <th>login</th>
-        <th>email</th>
-        <th>creation date</th>
-    </tr>
 
-    <c:forEach var="user" items="${users}">
-        <tr>
-            <th><c:out value="${user.name}"/></th>
-            <th><c:out value="${user.login}"/></th>
-            <th><c:out value="${user.email}"/></th>
-            <th><c:out value="${user.date}"/></th>
-        </tr>
-    </c:forEach>
 </table>
 
 </body>

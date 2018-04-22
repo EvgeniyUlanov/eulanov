@@ -15,11 +15,15 @@ public class UpdateUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String oldLogin = req.getParameter("oldLogin");
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String email = req.getParameter("email");
+        String password = req.getParameter("password");
         User user = new User(name, login, email);
-        userStore.updateUser(user);
+        user.setPassword(password);
+        user.setRole(req.getParameter("role"));
+        userStore.updateUser(oldLogin, user);
         resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

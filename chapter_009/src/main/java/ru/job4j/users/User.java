@@ -8,11 +8,16 @@ public class User {
     private String login;
     private String email;
     private Timestamp date;
+    private String role;
+    private String password;
 
     public User(String name, String login, String email) {
         this.name = name;
         this.login = login;
         this.email = email;
+        this.role = "user";
+        this.password = "11111";
+        this.date = Timestamp.valueOf("2018-04-08 01:02:33.089822");
     }
 
     public String getName() {
@@ -47,13 +52,32 @@ public class User {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        if (role != null) {
+            this.role = role;
+        }
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{"
                 + "name='" + name + '\''
                 + ", login='" + login + '\''
                 + ", email='" + email + '\''
-                + ", date=" + date.toString()
+                + ", date=" + date.toString() + '\''
+                + ", role=" + role
                 + '}';
     }
 

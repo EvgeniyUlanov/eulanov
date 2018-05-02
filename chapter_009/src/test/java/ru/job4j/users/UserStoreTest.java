@@ -24,25 +24,25 @@ public class UserStoreTest {
     public void createTable() {
         userStore.createTable();
     }
-
-    /**
-     * method close connection to db.
-     */
-    @AfterClass
-    public static void closeConnection() {
-        DBConnectionPool.closeConnection();
-    }
+//
+//    /**
+//     * method close connection to db.
+//     */
+//    @AfterClass
+//    public static void closeConnection() {
+//        DBConnectionPool.closeConnection();
+//    }
 
     /**
      * tests method addUser.
      */
     @Test
-    public void whenAddUserThanResultTrueIfUserAlreadyExistThanResultFalse() {
-        User user = new User("mike", "login", "email");
+    public void whenAddUserThanResultTrueIfUserAlreadyExistThanResultFalse() throws ClassNotFoundException {
+        User user = new User("igor", "login", "email");
 
         boolean result = userStore.addUser(user);
         Assert.assertThat(result, is(true));
-        Assert.assertThat(userStore.getUser("mike"), is(user));
+        Assert.assertThat(userStore.getUser("igor"), is(user));
 
         result = userStore.addUser(user);
         Assert.assertThat(result, is(false));
@@ -53,16 +53,16 @@ public class UserStoreTest {
      */
     @Test
     public void whenDeleteUserThanResultTrueIfUserDoesNotExistThanResultFalse() {
-        User user = new User("mike", "login", "email");
+        User user = new User("igor", "login", "email");
         userStore.addUser(user);
 
-        boolean result = userStore.deleteUser(user.getName());
+        boolean result = userStore.deleteUser(user.getLogin());
         Assert.assertThat(result, is(true));
 
         User expected = null;
-        Assert.assertThat(userStore.getUser("mike"), is(expected));
+        Assert.assertThat(userStore.getUser("igor"), is(expected));
 
-        result = userStore.deleteUser(user.getName());
+        result = userStore.deleteUser(user.getLogin());
         Assert.assertThat(result, is(false));
     }
 
@@ -72,18 +72,20 @@ public class UserStoreTest {
     @Test
     public void whenGetAllThanResultIsListOfAllUsers() {
         List<User> users = new ArrayList<>();
-        User mike = new User("mike", "human", "email");
+        User igor = new User("igor", "human", "email");
         User timon = new User("timon", "beast", "email");
-        User pumba = new User("pumba", "beast", "email");
-        users.add(mike);
+        User pumba = new User("pumba", "animal", "email");
+        users.add(igor);
         users.add(timon);
         users.add(pumba);
-        userStore.addUser(mike);
+        userStore.addUser(igor);
         userStore.addUser(timon);
         userStore.addUser(pumba);
 
         List<User> result = userStore.getAll();
 
-        Assert.assertTrue(result.containsAll(users));
+        Assert.assertTrue(result.contains(igor));
+        Assert.assertTrue(result.contains(timon));
+        Assert.assertTrue(result.contains(pumba));
     }
 }

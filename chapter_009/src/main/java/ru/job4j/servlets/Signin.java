@@ -45,7 +45,7 @@ public class Signin extends HttpServlet {
                 resp.sendRedirect(String.format("%s/", req.getContextPath()));
             }
         } else {
-            doGet(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/SigninView.jsp").forward(req, resp);
         }
     }
 }

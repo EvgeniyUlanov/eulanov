@@ -72,7 +72,7 @@ public class UserStore {
         if (userToCheck == null) {
             try (Connection conn = DBConnectionPool.getDataSource().getConnection();
                  PreparedStatement st =
-                         conn.prepareStatement("INSERT INTO Users (name, login, email, createdate, role_id, password) "
+                         conn.prepareStatement("INSERT INTO users (name, login, email, createdate, role_id, password) "
                                  + "VALUES (?, ?, ?, current_timestamp, (SELECT role_id FROM roles WHERE role_name=?), ?)")) {
                 st.setString(1, user.getName());
                 st.setString(2, user.getLogin());
@@ -114,12 +114,12 @@ public class UserStore {
         boolean result = false;
         try (Connection conn = DBConnectionPool.getDataSource().getConnection();
              PreparedStatement st =
-                     conn.prepareStatement("UPDATE users SET name = ?, " +
-                             "login=?, " +
-                             "email = ?, " +
-                             "password = ?, " +
-                             "role_id = (SELECT role_id FROM roles WHERE role_name = ?) " +
-                             "WHERE login = ?")) {
+                     conn.prepareStatement("UPDATE users SET name = ?, "
+                             + "login=?, "
+                             + "email = ?, "
+                             + "password = ?, "
+                             + "role_id = (SELECT role_id FROM roles WHERE role_name = ?) "
+                             + "WHERE login = ?")) {
             st.setString(1, user.getName());
             st.setString(2, user.getLogin());
             st.setString(3, user.getEmail());

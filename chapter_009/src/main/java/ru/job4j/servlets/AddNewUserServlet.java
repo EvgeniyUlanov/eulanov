@@ -17,7 +17,7 @@ public class AddNewUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
-        if (!name.equals("") && !login.equals("")) {
+        if (name != null && login != null && !name.equals("") && !login.equals("")) {
             String email = req.getParameter("email");
             User user = new User(name, login, email);
             user.setPassword(req.getParameter("password"));

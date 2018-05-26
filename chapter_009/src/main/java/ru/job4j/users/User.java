@@ -10,13 +10,19 @@ public class User {
     private Timestamp date;
     private String role;
     private String password;
+    private String country;
+    private String city;
+
+    public User() {
+        this(null, null, null);
+    }
 
     public User(String name, String login, String email) {
         this.name = name;
         this.login = login;
         this.email = email;
         this.role = "user";
-        this.password = "11111";
+        this.password = "1";
         this.date = Timestamp.valueOf("2018-04-08 01:02:33.089822");
     }
 
@@ -70,6 +76,22 @@ public class User {
         if (password != null) {
             this.password = password;
         }
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

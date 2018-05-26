@@ -13,6 +13,10 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>Users Controller Servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>AddNewUserServlet</servlet-name>
@@ -20,11 +24,21 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>AddNewUserServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>UpdateUserServlet</servlet-name>
         <servlet-class>ru.job4j.servlets.UpdateUserServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUserServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
@@ -35,21 +49,6 @@
     <servlet-mapping>
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>UpdateUserServlet</servlet-name>
-        <url-pattern>/update</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Users Controller Servlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>AddNewUserServlet</servlet-name>
-        <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -82,6 +81,50 @@
     <servlet-mapping>
         <servlet-name>UpdateUser</servlet-name>
         <url-pattern>/updateUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get All countries servlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.GetCountriesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Get All countries servlet</servlet-name>
+        <url-pattern>/countries</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get All cities</servlet-name>
+        <servlet-class>ru.job4j.servlets.GetCitiesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Get All cities</servlet-name>
+        <url-pattern>/cities</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get All roles</servlet-name>
+        <servlet-class>ru.job4j.servlets.GetRolesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Get All roles</servlet-name>
+        <url-pattern>/roles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Get All users</servlet-name>
+        <servlet-class>ru.job4j.servlets.GetAllUsersServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Get All users</servlet-name>
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
     <filter>

@@ -1,6 +1,5 @@
 package ru.job4j.servlets;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -53,6 +53,6 @@ public class UpdateUserServletTest {
 
         verify(resp).sendRedirect(String.format("%s/", req.getContextPath()));
         User user = userStore.getUser("peter");
-        Assert.assertThat(user.getLogin(), is("newLogin"));
+        assertThat(user.getLogin(), is("newLogin"));
     }
 }

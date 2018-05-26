@@ -9,13 +9,23 @@
     <style>
         <%@include file="css/styles.css"%>
     </style>
+    <script type="text/javascript">
+       function validate() {
+            var result = true;
+            if (document.getElementsByName("login")[0].value === "") {
+                result = false;
+                alert("enter login");
+            }
+            return result;
+        }
+    </script>
 </head>
 <body>
     <fieldset>
         <legend>Sing in</legend>
-        <form action="${pageContext.servletContext.contextPath}/sign" method="post">
-            <input name="login" placeholder="login" required/>
-            <input type="password" name="password" placeholder="password" required/>
+        <form action="${pageContext.servletContext.contextPath}/sign" method="post" onsubmit="return validate();">
+            <input name="login" placeholder="login"/>
+            <input type="password" name="password" placeholder="password"/>
             <input class="btn" type="submit" value="Sign in">
         </form>
     </fieldset>

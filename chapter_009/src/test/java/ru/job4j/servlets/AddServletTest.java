@@ -1,10 +1,8 @@
 package ru.job4j.servlets;
 
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ru.job4j.connectionpool.DBConnectionPool;
 import ru.job4j.users.User;
 import ru.job4j.users.UserStore;
 

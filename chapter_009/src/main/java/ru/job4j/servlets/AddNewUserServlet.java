@@ -22,6 +22,8 @@ public class AddNewUserServlet extends HttpServlet {
             User user = new User(name, login, email);
             user.setPassword(req.getParameter("password"));
             user.setRole(req.getParameter("role"));
+            user.setCountry(req.getParameter("country"));
+            user.setCity(req.getParameter("city"));
             userStore.addUser(user);
         }
         resp.sendRedirect(String.format("%s/", req.getContextPath()));

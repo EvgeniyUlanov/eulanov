@@ -47,7 +47,7 @@ public class DeleteUserServletTest {
 
         when(req.getParameter("login")).thenReturn("login");
 
-        deleteUserServlet.doPost(req, resp);
+        deleteUserServlet.doGet(req, resp);
         User expected = null;
 
         verify(resp).sendRedirect(String.format("%s/", req.getContextPath()));

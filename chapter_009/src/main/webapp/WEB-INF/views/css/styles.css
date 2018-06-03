@@ -24,6 +24,10 @@ header {
 #signOut {
     width: 50px;
 }
+#tableUsers {
+    border: 1px solid black;
+    width: 700px;
+}
 input {
     display: block;
     margin-bottom: 10px;

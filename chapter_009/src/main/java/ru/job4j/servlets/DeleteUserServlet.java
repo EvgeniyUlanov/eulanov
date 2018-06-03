@@ -13,9 +13,9 @@ public class DeleteUserServlet extends HttpServlet {
     private UserStore userStore = UserStore.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        userStore.deleteUser(login);
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String loginToDelete = req.getParameter("login");
+        System.out.println(loginToDelete);
+        userStore.deleteUser(req.getParameter("login"));
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <title>User page</title>
     <style>
-        <%@ include file="css/styles.css" %>
+        <%@ include file="../../resources/css/styles.css" %>
     </style>
 </head>
 <body>

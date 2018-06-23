@@ -1,33 +1,30 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
     <title>Sign in</title>
-    <link href="${pageContext.servletContext.contextPath}/WEB-INF/views/css/styles.css" type="text/css"
-          rel="stylesheet"/>
-    <style>
-        <%@include file="css/styles.css"%>
-    </style>
-    <script type="text/javascript">
-       function validate() {
-            var result = true;
-            if (document.getElementsByName("login")[0].value === "") {
-                result = false;
-                alert("enter login");
-            }
-            return result;
-        }
-    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="resources/css/styles.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="resources/js/myScript.js"></script>
 </head>
-<body>
-    <fieldset>
-        <legend>Sing in</legend>
+<body background="resources/img/back.jpg">
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
         <form action="${pageContext.servletContext.contextPath}/sign" method="post" onsubmit="return validate();">
-            <input name="login" placeholder="login"/>
-            <input type="password" name="password" placeholder="password"/>
-            <input class="btn" type="submit" value="Sign in">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Login</label>
+                <input name="login" class="form-control" id="exampleInputEmail1" placeholder="Enter login">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword1"
+                       placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sing in</button>
         </form>
-    </fieldset>
+    </div>
+</div>
 </body>
 </html>

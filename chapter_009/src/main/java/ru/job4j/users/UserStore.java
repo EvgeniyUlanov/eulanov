@@ -1,6 +1,5 @@
 package ru.job4j.users;
 
-import com.google.gson.Gson;
 import ru.job4j.connectionpool.DBConnectionPool;
 
 import java.sql.*;

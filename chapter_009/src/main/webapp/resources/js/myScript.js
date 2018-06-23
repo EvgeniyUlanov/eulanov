@@ -95,9 +95,9 @@ function FillTable() {
             $("<td>").addClass("country").text(user.country).appendTo(tableRaw);
             $("<td>").addClass("city").text(user.city).appendTo(tableRaw);
             var $tdButtonDelete = $('<td>').appendTo(tableRaw);
-            $('<button>').addClass("delete").text("delete").appendTo($tdButtonDelete);
+            $('<button>').addClass("delete btn btn-danger").text("delete").appendTo($tdButtonDelete);
             var $tdButtonUpdate = $('<td>').appendTo(tableRaw);
-            $('<button>').addClass("updateUser").text("update").appendTo($tdButtonUpdate);
+            $('<button>').addClass("updateUser btn btn-warning").text("update").appendTo($tdButtonUpdate);
         });
         AddDeleteHandlerToButtonDelete($select);
         AddUpdateHandlerToButtonUpdate($select);
@@ -177,5 +177,14 @@ function AddActionToUpdateButton() {
         });
         FillTable();
     })
+}
+
+function validate() {
+    var result = true;
+    if (document.getElementsByName("login")[0].value === "") {
+        result = false;
+        alert("enter login");
+    }
+    return result;
 }
 

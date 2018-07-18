@@ -1,8 +1,7 @@
 # eulanov
-������ �� ������ http://job4j.ru/
+Ссылка на проект http://job4j.ru/
 
-����: ����� Junior ������������� Java, ����� ������ �� ���� �������������
-����: 10 ���. �� 15.06.2018
+Цель: стать Junior программистом Java, найти работу по этой специальности
 
 # Here is some screenshots of chapter_009
 ## login page screenshot

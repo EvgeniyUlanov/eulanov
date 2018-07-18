@@ -6,10 +6,9 @@
     <title>Sign in</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="resources/css/styles.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="resources/js/myScript.js"></script>
 </head>
-<body background="resources/img/back.jpg">
+<body>
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
         <form action="${pageContext.servletContext.contextPath}/sign" method="post" onsubmit="return validate();">

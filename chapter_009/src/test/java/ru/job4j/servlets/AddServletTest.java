@@ -38,14 +38,6 @@ public class AddServletTest {
         userStore.createTable();
     }
 
-//    /**
-//     * method close connection to db.
-//     */
-//    @AfterClass
-//    public static void closeConnection() {
-//        DBConnectionPool.closeConnection();
-//    }
-
     /**
      * test for doPost method.
      * when add new user than this user exist in DB, then redirect to "/".

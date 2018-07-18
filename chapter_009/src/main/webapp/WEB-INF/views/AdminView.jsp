@@ -10,7 +10,7 @@
     <script type="text/javascript" src="resources/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="resources/js/myScript.js"></script>
 </head>
-<body background="resources/img/back.jpg">
+<body>
 
 <nav class="navbar navbar-expand-lg">
     <div>ADMIN PAGE. You are logged as "${currentUser}"</div>

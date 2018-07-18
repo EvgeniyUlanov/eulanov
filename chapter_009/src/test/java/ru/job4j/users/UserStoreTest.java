@@ -1,7 +1,6 @@
 package ru.job4j.users;
 
 import org.junit.*;
-import ru.job4j.connectionpool.DBConnectionPool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,6 @@ public class UserStoreTest {
     public void createTable() {
         userStore.createTable();
     }
-//
-//    /**
-//     * method close connection to db.
-//     */
-//    @AfterClass
-//    public static void closeConnection() {
-//        DBConnectionPool.closeConnection();
-//    }
 
     /**
      * tests method addUser.

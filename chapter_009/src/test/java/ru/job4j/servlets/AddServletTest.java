@@ -10,7 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -51,15 +54,15 @@ public class AddServletTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
 
-        when(req.getParameter("name")).thenReturn("new user");
-        when(req.getParameter("login")).thenReturn("user login");
-        when(req.getParameter("email")).thenReturn("email");
+        String itemJson = "{\"name\":\"new user\",\"login\":\"user login\",\"email\":\"email\"}";
+        when(req.getReader()).thenReturn(
+                new BufferedReader(new InputStreamReader(new ByteArrayInputStream(itemJson.getBytes())))
+        );
 
         servlet.doPost(req, resp);
 
         User user = userStore.getUser("new user");
 
-        verify(resp).sendRedirect(String.format("%s/", req.getContextPath()));
         assertThat(user.getLogin(), is("user login"));
     }
 }

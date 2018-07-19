@@ -12,7 +12,7 @@ import java.sql.*;
 
 public class Test {
 
-    private static final Logger log = LoggerFactory.getLogger(Test.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Test.class);
     private Connection conn;
 
     public void start(String host, String dbName, String user, String password, int numberN) {
@@ -27,13 +27,13 @@ public class Test {
                 System.out.println("Not good with select into file");
             }
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    log.error(e.getMessage(), e);
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
@@ -50,7 +50,7 @@ public class Test {
                 st.executeUpdate("CREATE TABLE IF NOT EXISTS Test (field int)");
                 st.executeUpdate("DELETE FROM Test");
             } catch (SQLException e) {
-                log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
@@ -63,7 +63,7 @@ public class Test {
                     st.executeUpdate();
                 }
             } catch (SQLException e) {
-                log.error(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
@@ -92,7 +92,7 @@ public class Test {
                         //log.error(e.getMessage(), e);
                     }
                 } catch (SQLException e) {
-                    log.error(e.getMessage(), e);
+                    LOG.error(e.getMessage(), e);
                 }
             }
             writer.writeEndElement();

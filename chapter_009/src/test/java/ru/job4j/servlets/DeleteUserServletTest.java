@@ -50,7 +50,6 @@ public class DeleteUserServletTest {
         deleteUserServlet.doGet(req, resp);
         User expected = null;
 
-        verify(resp).sendRedirect(String.format("%s/", req.getContextPath()));
         Assert.assertThat(userStore.getUser("peter"), is(expected));
     }
 }

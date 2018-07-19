@@ -51,7 +51,6 @@ public class UpdateUserServletTest {
 
         updateUserServlet.doPost(req, resp);
 
-        verify(resp).sendRedirect(String.format("%s/", req.getContextPath()));
         User user = userStore.getUser("peter");
         assertThat(user.getLogin(), is("newLogin"));
     }

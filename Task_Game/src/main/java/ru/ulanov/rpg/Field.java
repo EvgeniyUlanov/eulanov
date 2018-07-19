@@ -35,7 +35,7 @@ class Field {
 		firstPlayer.fillActiveUnits();
 		secondPlayer.fillActiveUnits();
 		firstMove();
-		while (notEndOfTurn()){
+		while (notEndOfTurn()) {
 			if (playerMove.canMove()) {
 				playerMove.makeMove(enemy);
 			}

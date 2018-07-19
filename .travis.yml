@@ -1,0 +1,19 @@
+language: java
+sudo: false
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+      -mailto:komrad1812@yandex.ru
+    on_success: never # default: change
+    on_failure: always # default: always
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database my_db;' -U postgres
+  - psql -c 'create database chapter10;' -U postgres

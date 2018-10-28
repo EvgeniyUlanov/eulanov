@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class StubInput for tests.
@@ -38,7 +39,8 @@ public class StubInput implements Input {
 	 * @param range - range of valide answers.
 	 * @return answer.
 	 */
-	public int ask(String question, ArrayList<Integer> range) {
+	@Override
+	public int ask(String question, List<Integer> range) {
 		return Integer.valueOf(answers.get(position++));
 	}
 }

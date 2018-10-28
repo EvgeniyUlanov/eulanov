@@ -15,7 +15,7 @@ import java.util.Random;
 public class Tracker {
 
 	/** Item[]. */
-	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Item> items = new ArrayList<>();
 	/** random for Id. */
 	private static final Random RN = new Random();
 
@@ -66,7 +66,7 @@ public class Tracker {
 	 */
 	public ArrayList<Item> findAll() {
 		if (!this.items.isEmpty()) {
-			ArrayList<Item> result = new ArrayList<Item>();
+			ArrayList<Item> result = new ArrayList<>();
 			for (Item item : this.items) {
 				if (item != null) {
 					result.add(item);
@@ -74,7 +74,7 @@ public class Tracker {
 			}
 			return result;
 		} else {
-			return new ArrayList<Item>();
+			return new ArrayList<>();
 		}
 	}
 
@@ -85,7 +85,7 @@ public class Tracker {
 	 */
 	public ArrayList<Item> findByName(String key) {
 		if (!this.items.isEmpty()) {
-			ArrayList<Item> result = new ArrayList<Item>();
+			ArrayList<Item> result = new ArrayList<>();
 			for (Item item : this.items) {
 				if (item.getName().equals(key)) {
 					result.add(item);
@@ -93,7 +93,7 @@ public class Tracker {
 			}
 			return result;
 		}
-		return new ArrayList<Item>();
+		return new ArrayList<>();
 	}
 
 	/**

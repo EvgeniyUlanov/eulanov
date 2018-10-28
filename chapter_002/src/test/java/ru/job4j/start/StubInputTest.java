@@ -28,7 +28,9 @@ public class StubInputTest {
 		answers.add("description");
 		answers.add("7");
 		Input input = new StubInput(answers);
-		new StartUI(input, tracker).start();
+		TrackerIO trackerIO = TrackerIO.getInstance();
+		trackerIO.initTrackerIO(System.out::println, input);
+		new StartUI(trackerIO, tracker).start();
 		assertThat(tracker.findAll().get(0).getName(), is("new test"));
 	}
 
@@ -46,7 +48,9 @@ public class StubInputTest {
 		answers.add(id);
 		answers.add("7");
 		Input input = new StubInput(answers);
-		new StartUI(input, tracker).start();
+		TrackerIO trackerIO = TrackerIO.getInstance();
+		trackerIO.initTrackerIO(System.out::println, input);
+		new StartUI(trackerIO, tracker).start();
 		assertThat(tracker.isNotEmpty(), is(false));
 	}
 
@@ -67,7 +71,9 @@ public class StubInputTest {
 		answers.add("100");
 		answers.add("7");
 		Input input = new StubInput(answers);
-		new StartUI(input, tracker).start();
+		TrackerIO trackerIO = TrackerIO.getInstance();
+		trackerIO.initTrackerIO(System.out::println, input);
+		new StartUI(trackerIO, tracker).start();
 		assertThat(tracker.findById(id).getName(), is("update task"));
 	}
 }

@@ -11,10 +11,9 @@ package ru.job4j.start;
 public interface UserAction {
 	/**
 	 * metod execute.
-	 * @param input - input.
 	 * @param tracker - tracker.
 	 */
-	void execute(Input input, Tracker tracker);
+	void execute(Tracker tracker);
 
 	/**
 	 * metod info - shows menu.

@@ -1,6 +1,6 @@
 package ru.job4j.start;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class ValidateInput.
@@ -17,7 +17,8 @@ public class ValidateInput extends ConsoleInput {
 	 * @param range - range of valid answers.
 	 * @return user answer.
 	 */
-	public int ask(String question, ArrayList<Integer> range) {
+	@Override
+	public int ask(String question, List<Integer> range) {
 		boolean invalid = true;
 		int value = -1;
 		do {
@@ -25,9 +26,9 @@ public class ValidateInput extends ConsoleInput {
 				value = super.ask(question, range);
 				invalid = false;
 			} catch (NumberFormatException nfe) {
-				System.out.println("Invalid input. It must be number from 1 to 7.");
+				TrackerIO.getInstance().out("Invalid input. It must be number from 1 to 7.");
 			} catch (MenuOutException moe) {
-				System.out.println("The number must be from 1 to 7.");
+				TrackerIO.getInstance().out("The number must be from 1 to 7.");
 			}
 		} while (invalid);
 		return value;

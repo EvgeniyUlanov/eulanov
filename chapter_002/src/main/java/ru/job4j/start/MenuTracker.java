@@ -2,6 +2,7 @@ package ru.job4j.start;
 
 import ru.job4j.models.Item;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class MenuTracker.
@@ -13,26 +14,23 @@ import java.util.ArrayList;
 public class MenuTracker {
 
 	/** input. */
-	private Input input;
-
+	private TrackerIO trackerIO;
 	/** tracker. */
 	private Tracker tracker;
-
 	/** userActions. */
-	private ArrayList<UserAction> actions = new ArrayList<UserAction>();
+	private ArrayList<UserAction> actions = new ArrayList<>();
 
 	/**
 	 * constructor.
-	 * @param input - input.
 	 * @param tracker - tracker.
 	 */
-	public MenuTracker(Input input, Tracker tracker) {
-		this.input = input;
+	public MenuTracker(Tracker tracker) {
+		trackerIO = TrackerIO.getInstance();
 		this.tracker = tracker;
 	}
 
 	/**
-	 * metod fill Actions.
+	 * method fill Actions.
 	 * @return actions size.
 	 */
 	public Integer fillActions() {
@@ -50,18 +48,18 @@ public class MenuTracker {
 	 */
 	public void show() {
 		for (UserAction action : this.actions) {
-			System.out.println(action.info());
+			trackerIO.out(action.info());
 		}
-		System.out.println(String.format("7. %s ", "Exit."));
+		trackerIO.out(String.format("7. %s ", "Exit."));
 	}
 
 	/**
-	 * metod select user choice.
+	 * method select user choice.
 	 * @param key - user select.
 	 */
 	public void select(int key) {
 		if (key - 1 < this.actions.size()) {
-			this.actions.get(key - 1).execute(this.input, this.tracker);
+			this.actions.get(key - 1).execute(this.tracker);
 		}
 	}
 
@@ -79,12 +77,11 @@ public class MenuTracker {
 		}
 
 		/**
-		 * metod execute.
-		 * @param input - input.
+		 * method execute.
 		 * @param tracker - tracker.
 		 */
-		public void execute(Input input, Tracker tracker) {
-			Item item = new Item(input.ask("enter name: "), input.ask("enter discription: "), 0L);
+		public void execute(Tracker tracker) {
+			Item item = new Item(trackerIO.in("enter name: "), trackerIO.in("enter discription: "), 0L);
 			tracker.add(item);
 		}
 	}
@@ -103,19 +100,18 @@ public class MenuTracker {
 		}
 
 		/**
-		 * metod execute.
-		 * @param input - input.
+		 * method execute.
 		 * @param tracker - tracker.
 		 */
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Tracker tracker) {
 			ArrayList<Item> allItems = tracker.findAll();
 			if (!allItems.isEmpty()) {
-				System.out.println("");
+				TrackerIO.getInstance().out("");
 				for (Item item : allItems) {
-					System.out.println(item.getId() + " " + item.getName() + " - " + item.getDescription());
+					TrackerIO.getInstance().out(item.getId() + " " + item.getName() + " - " + item.getDescription());
 				}
 			} else {
-				System.out.println("The list is empty.");
+				TrackerIO.getInstance().out("The list is empty.");
 			}
 		}
 	}
@@ -134,35 +130,31 @@ public class MenuTracker {
 		}
 
 		/**
-		 * metod execute.
-		 * @param input - input.
+		 * method execute.
 		 * @param tracker - tracker.
 		 */
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Tracker tracker) {
 			if (tracker.isNotEmpty()) {
-				System.out.println("");
-				String answer = input.ask("enter id: ");
+				trackerIO.out("");
+				String answer = trackerIO.in("enter id: ");
 				Item item = tracker.findById(answer);
 				if (item.getId() != null) {
-					item.setName(input.ask("enter new name: "));
-					item.setDescription(input.ask("enter new description: "));
-					// Проверка что введено число.
-					boolean invalide = true;
+					item.setName(trackerIO.in("enter new name: "));
+					item.setDescription(trackerIO.in("enter new description: "));
+					boolean invalid = true;
 					do {
 						try {
-							item.setCreate(input.ask("enter new create (must be number): "));
-							invalide = false;
+							item.setCreate(trackerIO.in("enter new create (must be number): "));
+							invalid = false;
 						} catch (NumberFormatException nfe) {
-							System.out.println("It must be natural value.");
+							trackerIO.out("It must be natural value.");
 						}
-					} while (invalide);
-					// если все нормально создаем Item.
-					//tracker.update(item);
+					} while (invalid);
 				} else {
-					System.out.println("Item with this Id is not exist");
+					trackerIO.out("Item with this Id is not exist");
 				}
 			} else {
-				System.out.println("The list is empty.");
+				trackerIO.out("The list is empty.");
 			}
 		}
 	}
@@ -182,21 +174,20 @@ public class MenuTracker {
 
 		/**
 		 * metod execute.
-		 * @param input - input.
 		 * @param tracker - tracker.
 		 */
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Tracker tracker) {
 			if (tracker.isNotEmpty()) {
-				System.out.println("");
-				String answer = input.ask("enter id: ");
+				trackerIO.out("");
+				String answer = trackerIO.in("enter id: ");
 				Item item = tracker.findById(answer);
 				if (item.getId() != null) {
 					tracker.delete(item);
 				} else {
-					System.out.println("Item with this Id is not exist");
+					trackerIO.out("Item with this Id is not exist");
 				}
 			} else {
-				System.out.println("The list is empty.");
+				trackerIO.out("The list is empty.");
 			}
 		}
 	}
@@ -215,17 +206,16 @@ public class MenuTracker {
 		}
 
 		/**
-		 * metod execute.
-		 * @param input - input.
+		 * method execute.
 		 * @param tracker - tracker.
 		 */
-		public void execute(Input input, Tracker tracker) {
+		public void execute(Tracker tracker) {
 			if (tracker.isNotEmpty()) {
-				Item item = tracker.findById(input.ask("enter Id: "));
-				System.out.println("");
-				System.out.println(item.getId() + " " + item.getName() + " - " + item.getDescription());
+				Item item = tracker.findById(trackerIO.in("enter Id: "));
+				trackerIO.out("");
+				trackerIO.out(item.getId() + " " + item.getName() + " - " + item.getDescription());
 			} else {
-				System.out.println("The list is empty.");
+				trackerIO.out("The list is empty.");
 			}
 		}
 	}
@@ -235,6 +225,9 @@ public class MenuTracker {
  * class FindItemByName.
  */
 class FindItemByName extends BaseAction {
+
+	private TrackerIO trackerIO;
+
 	/**
 	 * constructor.
 	 * @param name - name.
@@ -242,24 +235,22 @@ class FindItemByName extends BaseAction {
 	 */
 	FindItemByName(String name, int key) {
 		super(name, key);
+		trackerIO = TrackerIO.getInstance();
 	}
 
 	/**
 	 * metod execute.
-	 * @param input - input.
 	 * @param tracker - tracker.
 	 */
-	public void execute(Input input, Tracker tracker) {
-		ArrayList<Item> items = tracker.findByName(input.ask("enter name: "));
+	public void execute(Tracker tracker) {
+		List<Item> items = tracker.findByName(trackerIO.in("enter name: "));
 		if (items.size() == 0) {
-			System.out.println("No items found with this name.");
-		} else if (items.size() > 0) {
-			for (int i = 0; i < items.size(); i++) {
-				System.out.println(String.format("%s %s - %s", items.get(i).getId(), items.get(i).getName(),
-								items.get(i).getDescription()));
-			}
+			trackerIO.in("No items found with this name.");
 		} else {
-			System.out.println("wrong name.");
+			for (Item item : items) {
+				trackerIO.out(String.format("%s %s - %s", item.getId(), item.getName(),
+						item.getDescription()));
+			}
 		}
 	}
 }

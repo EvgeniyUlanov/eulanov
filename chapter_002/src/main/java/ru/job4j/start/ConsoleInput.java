@@ -1,5 +1,6 @@
 package ru.job4j.start;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -30,7 +31,8 @@ public class ConsoleInput implements Input {
 	 * @param range - range of valid answers.
 	 * @return user answer.
 	 */
-	public int ask(String question, ArrayList<Integer> range)  {
+	@Override
+	public int ask(String question, List<Integer> range)  {
 		int key = Integer.valueOf(this.ask(question));
 		if (range.contains(key)) {
 			return key;

@@ -1,6 +1,6 @@
 package ru.job4j.start;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * interface Input.
@@ -23,5 +23,5 @@ public interface Input {
 	 * @param range - range of valide answers.
 	 * @return answer - int.
 	 */
-	int ask(String question, ArrayList<Integer> range);
+	int ask(String question, List<Integer> range);
 }

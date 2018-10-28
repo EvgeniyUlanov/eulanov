@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * class SartUI.
@@ -8,22 +9,21 @@ import java.util.ArrayList;
  * @version $Id$.
  * @since 0.1
  */
-
 public class StartUI {
 	/** input. */
-	private Input input;
+	private TrackerIO trackerIO;
 	/** tracker. */
 	private Tracker tracker;
-	/** range of valide enter. */
-	private ArrayList<Integer> range;
+	/** range of valid enter. */
+	private List<Integer> range;
 
 	/**
 	 * constructor.
-	 * @param input - input.
+	 * @param trackerIO - tracker input/output.
 	 * @param tracker - tracker.
 	 */
-	public StartUI(Input input, Tracker tracker) {
-		this.input = input;
+	public StartUI(TrackerIO trackerIO, Tracker tracker) {
+		this.trackerIO = trackerIO;
 		this.tracker = tracker;
 	}
 
@@ -31,34 +31,40 @@ public class StartUI {
 	 * start metod.
 	 */
 	public void start() {
-		System.out.println("");
-		System.out.println("Tracker - programm for adding and finding task.");
-		MenuTracker menu = new MenuTracker(this.input, this.tracker);
+		trackerIO.out("");
+		trackerIO.out("Tracker - programm for adding and finding task.");
+		MenuTracker menu = new MenuTracker(this.tracker);
 		this.range = new ArrayList<>();
 		int valueOfActions = menu.fillActions();
 		for (int i = 0; i <= valueOfActions; i++) {
 			range.add(i + 1);
 		}
-		int key = 0;
+		int key;
 		do {
-			System.out.println("");
+            trackerIO.out("");
 			menu.show();
-			System.out.println("");
-			key = input.ask("Enter your choice: ", this.range);
-			System.out.println("");
+            trackerIO.out("");
+			key = trackerIO.in("Enter your choice: ", this.range);
+			trackerIO.out("");
 			menu.select(key);
 		} while (key != 7);
-		System.out.println("Programm out. Good Bay.");
+        trackerIO.out("Program out. Good Bay.");
 	}
 
-	/**
+    public void setTrackerIO(TrackerIO trackerIO) {
+        this.trackerIO = trackerIO;
+    }
+
+    /**
 	 * main metod.
 	 * @param args - args.
 	 */
 	public static void main(String[] args) {
 		Tracker tracker = new Tracker();
 		Input input = new ValidateInput();
-		new StartUI(input, tracker).start();
+		TrackerIO trackerIO = TrackerIO.getInstance();
+		trackerIO.initTrackerIO(System.out::println, input);
+		new StartUI(trackerIO, tracker).start();
 	}
 
 }

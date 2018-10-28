@@ -27,6 +27,6 @@ public class Player {
 		} else if (color == 2) {
 			return "b";
 		}
-		return "n";
+		return "getInstance";
 	}
 }

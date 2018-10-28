@@ -1,18 +1,23 @@
 package ru.job4j.services;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import ru.job4j.models.Item;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.function.Function;
 
 public class ItemStore {
 
     private static final ItemStore ITEM_STORE = new ItemStore();
+    private SessionFactory factory;
 
     private ItemStore() {
+        factory = SessionFactoryStore.getInstance().getFactory();
     }
 
     public static ItemStore getInstance() {
@@ -20,46 +25,56 @@ public class ItemStore {
     }
 
     public void addItem(Item item) {
-        try (Session session = SessionFactoryStore.getInstance().getFactory().openSession()) {
-            session.beginTransaction();
-            session.save(item);
-            session.getTransaction().commit();
-        }
+        tx(session -> session.save(item));
     }
 
     public List<Item> getAll() {
-        try (Session session = SessionFactoryStore.getInstance().getFactory().openSession()) {
-            CriteriaBuilder builder = SessionFactoryStore.getInstance().getFactory().getCriteriaBuilder();
+        return tx(session -> {
+            CriteriaBuilder builder = factory.getCriteriaBuilder();
             CriteriaQuery<Item> criteriaQuery = builder.createQuery(Item.class);
             Root<Item> root = criteriaQuery.from(Item.class);
             criteriaQuery.select(root);
             return session.createQuery(criteriaQuery).list();
-        }
+        });
     }
 
     public void updateItem(Item item) {
-        try (Session session = SessionFactoryStore.getInstance().getFactory().openSession()) {
-            session.beginTransaction();
+        tx(session -> {
             session.update(item);
-            session.getTransaction().commit();
-        }
+            return item;
+        });
     }
 
     public void deleteItem(Item item) {
-        try (Session session = SessionFactoryStore.getInstance().getFactory().openSession()) {
-            session.beginTransaction();
+        tx(session -> {
             session.delete(item);
-            session.getTransaction().commit();
-        }
+            return item;
+        });
     }
 
     public Item getItem(long id) {
-        Item item;
-        try (Session session = SessionFactoryStore.getInstance().getFactory().openSession()) {
-            session.beginTransaction();
-            item = session.get(Item.class, id);
-            session.getTransaction().commit();
+        return tx(session -> session.get(Item.class, id));
+    }
+
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = factory.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            return command.apply(session);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            tx.commit();
+            session.close();
         }
-        return item;
+    }
+
+    public SessionFactory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(SessionFactory factory) {
+        this.factory = factory;
     }
 }

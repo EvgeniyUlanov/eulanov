@@ -27,6 +27,7 @@ public class GetAllItemsServlet extends HttpServlet {
         String itemsJson = gson.toJson(items);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
+        System.out.println(itemsJson);
         resp.getWriter().write(itemsJson);
     }
 

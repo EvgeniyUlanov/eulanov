@@ -10,7 +10,7 @@ public class FunctionCalc {
                                         List<Integer> argsList,
                                         BiFunction<List<Integer>, Integer, Double> function) {
         List<Double> result = new ArrayList<>();
-        for (int i = start; i <= finish ; i++) {
+        for (int i = start; i <= finish; i++) {
             result.add(function.apply(argsList, i));
         }
         return result;

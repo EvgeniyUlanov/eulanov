@@ -1,5 +1,7 @@
 package ru.job4j.servlets;
 
+import ru.job4j.services.SessionFactoryStore;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,5 +18,10 @@ public class AppControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        SessionFactoryStore.getInstance().getFactory().close();
     }
 }

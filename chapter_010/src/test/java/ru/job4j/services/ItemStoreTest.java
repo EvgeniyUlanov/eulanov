@@ -41,5 +41,8 @@ public class ItemStoreTest {
 
         assertTrue(items.contains(first));
         assertTrue(items.contains(second));
+
+        ItemStore.getInstance().deleteItem(first);
+        ItemStore.getInstance().deleteItem(second);
     }
 }

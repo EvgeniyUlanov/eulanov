@@ -1,5 +1,7 @@
 package ru.job4j.compare;
 
+import java.util.Objects;
+
 /**
  * class User.
  * @author Evgeniy Ulanov (komrad1812@yandex.ru)
@@ -24,7 +26,7 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 * metod getAge.
+	 * method getAge.
 	 * @return age.
 	 */
 	public int getAge() {
@@ -32,7 +34,7 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 * metod getName.
+	 * method getName.
 	 * @return name.
 	 */
 	public String getName() {
@@ -40,7 +42,7 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 * metod toString.
+	 * method toString.
 	 * @return String.
 	 */
 	@Override
@@ -49,7 +51,7 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 * metod compareTo.
+	 * method compareTo.
 	 * @param o - user.
 	 * @return int.
 	 */
@@ -60,11 +62,11 @@ public class User implements Comparable<User> {
 	}
 
 	/**
-	 * metod equals.
+	 * method equals.
 	 * @param o - user.
 	 * @return boolean.
 	 */
 	public boolean equal(User o) {
-		return this == o || this.getClass() == o.getClass() && this.name.equals(o.name) && this.age == o.age;
+		return this == o || this.getClass() == o.getClass() && this.name.equals(o.name) && Objects.equals(this.age, o.age);
 	}
 }

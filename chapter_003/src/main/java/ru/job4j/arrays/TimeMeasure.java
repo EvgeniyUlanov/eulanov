@@ -12,32 +12,30 @@ import java.util.TreeSet;
  * @version $Id$.
  * @since 0.1
  */
-public class TimeMesure {
+public class TimeMeasure {
 
 	/**
-	 * main metod.
+	 * main method.
 	 * @param args - args.
 	 */
 	public static void main(String[] args) {
-		TimeMesure tm = new TimeMesure();
 		Collection<String> arrayListTest = new ArrayList<String>();
 		Collection<String> linkedListTest = new LinkedList<String>();
 		Collection<String> treeSetTest = new TreeSet<String>();
-		long time;
 		int elementsToAdd = 999999;
 		int elementsToDelete = 20000;
 
 		System.out.println("ArrayList test:");
-		TimeMesure.timeMesureAddDelete(arrayListTest, elementsToAdd, elementsToDelete);
+		TimeMeasure.timeMeasureAddDelete(arrayListTest, elementsToAdd, elementsToDelete);
 		System.out.println("LinkedList test:");
-		TimeMesure.timeMesureAddDelete(linkedListTest, elementsToAdd, elementsToDelete);
+		TimeMeasure.timeMeasureAddDelete(linkedListTest, elementsToAdd, elementsToDelete);
 		System.out.println("TreeSet test:");
-		TimeMesure.timeMesureAddDelete(treeSetTest, elementsToAdd, elementsToDelete);
+		TimeMeasure.timeMeasureAddDelete(treeSetTest, elementsToAdd, elementsToDelete);
 	}
 
 	/**
-	 * metod mesure time to add many elements(amount).
-	 * @param collection - sourse collection.
+	 * method measure time to add many elements(amount).
+	 * @param collection - source collection.
 	 * @param amount - amount of element.
 	 */
 	public static void add(Collection<String> collection, int amount) {
@@ -47,7 +45,7 @@ public class TimeMesure {
 	}
 
 	/**
-	 * metod delete many elements(from begin to amount).
+	 * method delete many elements(from begin to amount).
 	 * @param collection - collection.
 	 * @param amount - amount.
 	 */
@@ -58,45 +56,45 @@ public class TimeMesure {
 	}
 
 	/**
-	 * metod mesure time to add many elements(amount).
+	 * method measure time to add many elements(amount).
 	 * @param collection - collection.
 	 * @param amount - amount.
 	 * @return long.
 	 */
-	public static long timeMesureAdd(Collection<String> collection, int amount) {
+	public static long timeMeasureAdd(Collection<String> collection, int amount) {
 		long firstTime = System.currentTimeMillis();
-		TimeMesure.add(collection, amount);
+		TimeMeasure.add(collection, amount);
 		long lastTime = System.currentTimeMillis();
 		return lastTime - firstTime;
 	}
 
 	/**
-	 * metod mesure time to delete many elements(from begin to amount).
+	 * method measure time to delete many elements(from begin to amount).
 	 * @param collection - collection.
 	 * @param amount - amount.
 	 * @return long.
 	 */
-	public static long timeMesureDelete(Collection<String> collection, int amount) {
+	public static long timeMeasureDelete(Collection<String> collection, int amount) {
 		long firstTime = System.currentTimeMillis();
-		TimeMesure.delete(collection, amount);
+		TimeMeasure.delete(collection, amount);
 		long lastTime = System.currentTimeMillis();
 		return lastTime - firstTime;
 	}
 
 	/**
-	 * metod tests time.
+	 * method tests time.
 	 * @param collection - collection.
 	 * @param amountAdd - amount elements to add
 	 * @param amountDelete - amount elements to delete
 	 */
-	public static void timeMesureAddDelete(Collection<String> collection, int amountAdd, int amountDelete) {
+	public static void timeMeasureAddDelete(Collection<String> collection, int amountAdd, int amountDelete) {
 		long resultAdd = 0;
 		long resultDelete = 0;
-		TimeMesure.timeMesureAdd(collection, amountAdd);
+		TimeMeasure.timeMeasureAdd(collection, amountAdd);
 		for (int i = 0; i < 5; i++) {
 			collection.clear();
-			long tmAdd = TimeMesure.timeMesureAdd(collection, amountAdd);
-			long tmDel = TimeMesure.timeMesureDelete(collection, amountDelete);
+			long tmAdd = TimeMeasure.timeMeasureAdd(collection, amountAdd);
+			long tmDel = TimeMeasure.timeMeasureDelete(collection, amountDelete);
 			if (i > 0) {
 				resultAdd += tmAdd;
 				resultDelete += tmDel;

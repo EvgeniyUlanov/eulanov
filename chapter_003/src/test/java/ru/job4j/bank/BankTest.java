@@ -22,7 +22,7 @@ public class BankTest {
         Bank bank = new Bank();
         User user = new User("Andrey", "4515 455456");
         bank.addUser(user);
-        assert (bank.conteins(user));
+        assert (bank.contains(user));
     }
 
     /**
@@ -33,9 +33,9 @@ public class BankTest {
         Bank bank = new Bank();
         User user = new User("Andrey", "4515 455456");
         bank.addUser(user);
-        assert (bank.conteins(user));
+        assert (bank.contains(user));
         bank.deleteUser(user);
-        assert (!bank.conteins(user));
+        assert (!bank.contains(user));
     }
 
     /**

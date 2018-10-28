@@ -9,7 +9,7 @@ package ru.job4j.bank;
  */
 class WrongAccountException extends Exception {
     /**
-     * metod AccountException.
+     * method AccountException.
      *
      * @param msg - message.
      */

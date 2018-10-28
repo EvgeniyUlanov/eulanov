@@ -3,7 +3,6 @@ package ru.job4j.bank;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-//import java.util.ArrayList;
 
 /**
  * class Bank.
@@ -20,11 +19,11 @@ public class Bank {
      * constructor.
      */
     public Bank() {
-        users = new HashMap<User, List<Account>>();
+        users = new HashMap<>();
     }
 
     /**
-     * metod addUser.
+     * method addUser.
      * @param user - user.
      */
     public void addUser(User user) {
@@ -32,7 +31,7 @@ public class Bank {
     }
 
     /**
-     * metod deleteUser.
+     * method deleteUser.
      * @param user - user.
      */
     public void deleteUser(User user) {
@@ -40,7 +39,7 @@ public class Bank {
     }
 
     /**
-     * metod addAccountToUser.
+     * method addAccountToUser.
      * @param user - user
      * @param account - account
      * @return boolean.
@@ -55,7 +54,7 @@ public class Bank {
     }
 
     /**
-     * metod deleteAccount.
+     * method deleteAccount.
      * @param user - user.
      * @param account - acoount.
      * @return boolean
@@ -65,7 +64,7 @@ public class Bank {
     }
 
     /**
-     * metod getAccount.
+     * method getAccount.
      * @param user - user
      * @return list.
      */
@@ -74,54 +73,54 @@ public class Bank {
     }
 
     /**
-     * metod transfer.
-     * @param sourseUser - user
-     * @param sourseAccount - account
+     * method transfer.
+     * @param sourceUser - user
+     * @param sourceAccount - account
      * @param destUser - user
      * @param destAccount - account
      * @param amount - amount
      * @return boolean.
      * @throws WrongAccountException - exception.
      */
-    public boolean transfer(User sourseUser, Account sourseAccount, User destUser, Account destAccount, double amount)
+    public boolean transfer(User sourceUser, Account sourceAccount, User destUser, Account destAccount, double amount)
             throws WrongAccountException {
-        if (sourseAccount == null || destAccount == null) {
+        if (sourceAccount == null || destAccount == null) {
             return false;
         }
-        if (!sourseUser.getAccounts().contains(sourseAccount)
+        if (!sourceUser.getAccounts().contains(sourceAccount)
                 || !destUser.getAccounts().contains(destAccount)) {
             throw new WrongAccountException("Account does not belong user");
         }
-        return sourseAccount.getValue() > amount && sourseAccount.takeValue(amount) && destAccount.addValue(amount);
+        return sourceAccount.getValue() > amount && sourceAccount.takeValue(amount) && destAccount.addValue(amount);
     }
 
     /**
-     * metod transfer from user account to another user account.
+     * method transfer from user account to another user account.
      * @param user - user.
-     * @param sourseAccount - sourse account.
+     * @param sourceAccount - source account.
      * @param destAccount - dest account.
      * @param amount - value.
      * @return boolean
      * @throws WrongAccountException - exception.
      */
-    public boolean transfer(User user, Account sourseAccount, Account destAccount, double amount)
+    public boolean transfer(User user, Account sourceAccount, Account destAccount, double amount)
             throws WrongAccountException {
-        if (sourseAccount == null || destAccount == null) {
+        if (sourceAccount == null || destAccount == null) {
             return false;
         }
-        if (!user.getAccounts().contains(sourseAccount)
+        if (!user.getAccounts().contains(sourceAccount)
                 || !user.getAccounts().contains(destAccount)) {
             throw new WrongAccountException("Account does not belong user");
         }
-        return sourseAccount.getValue() > amount && sourseAccount.takeValue(amount) && destAccount.addValue(amount);
+        return sourceAccount.getValue() > amount && sourceAccount.takeValue(amount) && destAccount.addValue(amount);
     }
 
     /**
-     * metod conteins.
+     * method contains.
      * @param user - user.
      * @return boolean.
      */
-    public boolean conteins(User user) {
+    public boolean contains(User user) {
         return users.containsKey(user);
     }
 }

@@ -23,7 +23,7 @@ public class User {
 	}
 
 	/**
-	 * metod setId.
+	 * method setId.
 	 * @param id - id.
 	 */
 	public void setId(int id) {

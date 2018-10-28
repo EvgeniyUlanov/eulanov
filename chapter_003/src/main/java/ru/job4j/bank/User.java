@@ -18,7 +18,7 @@ public class User {
 	private List<Account> accounts;
 
     /**
-     * construcor.
+     * constructor.
      * @param name - name.
      * @param passport - passpor.
      */
@@ -29,7 +29,7 @@ public class User {
     }
 
     /**
-     * metod setAccount.
+     * method setAccount.
      * @param account - account.
      * @return boolean.
      */
@@ -38,7 +38,7 @@ public class User {
     }
 
     /**
-     * metod removeAccount.
+     * method removeAccount.
      * @param account - account.
      * @return boolean.
      */
@@ -47,7 +47,7 @@ public class User {
     }
 
     /**
-     * metod getAccounts.
+     * method getAccounts.
      * @return accounts.
      */
     List<Account> getAccounts() {
@@ -55,7 +55,7 @@ public class User {
     }
 
     /**
-     * metod equals.
+     * method equals.
      * @param o - user.
      * @return boolean.
      */
@@ -70,7 +70,7 @@ public class User {
     }
 
     /**
-     * metod hashCode.
+     * method hashCode.
      * @return hashCode.
      */
     public int hashCode() {

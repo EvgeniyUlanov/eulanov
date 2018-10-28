@@ -37,7 +37,7 @@ public class Account {
     }
 
     /**
-     * metod checkOccupied.
+     * method checkOccupied.
      * @return isOccupied.
      */
     public boolean checkOcupied() {
@@ -45,14 +45,14 @@ public class Account {
     }
 
     /**
-     * metod setOccupied.
+     * method setOccupied.
      */
     public void setOccupied() {
         this.isOccupied = true;
     }
 
     /**
-     * metod getValue.
+     * method getValue.
      * @return value
      */
     public double getValue() {
@@ -60,7 +60,7 @@ public class Account {
     }
 
     /**
-     * metod setValue.
+     * method setValue.
      * @param value - value.
      * @return boolean.
      */
@@ -73,7 +73,7 @@ public class Account {
     }
 
     /**
-     * metod takeValue.
+     * method takeValue.
      * @param value - value.
      * @return boolean.
      */
@@ -86,8 +86,8 @@ public class Account {
     }
 
     /**
-     * metod getRequisites.
-     * @return requiseites.
+     * method getRequisites.
+     * @return requisites.
      */
     public String getRequisites() {
         return requisites;

@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class UserConvert {
 	/**
-	 * metod process.
+	 * method process.
 	 * @param list - list.
 	 * @return HashMap.
 	 */

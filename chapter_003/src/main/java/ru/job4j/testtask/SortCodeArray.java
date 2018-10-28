@@ -3,8 +3,6 @@ package ru.job4j.testtask;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
-import java.util.Comparator;
-
 
 /**
  * class SortCodeArray - create dictionary of organization code and sort it.
@@ -14,8 +12,8 @@ import java.util.Comparator;
  */
 public class SortCodeArray {
     /**
-     * metod create set of strings for dictionary.
-     * @param incomingArray - sourse Array.
+     * method create set of strings for dictionary.
+     * @param incomingArray - source Array.
      * @return TreeSet.
      */
     public static TreeSet<String> createSrtSet(Collection<String> incomingArray) {
@@ -33,8 +31,8 @@ public class SortCodeArray {
     }
 
     /**
-     * metod split string by slash.
-     * @param str - sourse string.
+     * method split string by slash.
+     * @param str - source string.
      * @return ArrayList.
      */
     private static ArrayList<String> splitBySlash(String str) {
@@ -52,20 +50,17 @@ public class SortCodeArray {
     }
 
     /**
-     * metod sort Array by decrease elements.
+     * method sort Array by decrease elements.
      * @param incoming - incoming Array.
      * @return TreeSet.
      */
     public static TreeSet<String> sortDecrease(Collection<String> incoming) {
-        TreeSet<String> result = new TreeSet<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if ((o1.length() < o2.length() && o1.contains(o2.substring(0, o1.length())))
-                        || (o2.length() < o1.length() && o2.contains(o1.substring(0, o2.length())))) {
-                    return Integer.compare(o1.length(), o2.length());
-                }
-                return o2.compareTo(o1);
+        TreeSet<String> result = new TreeSet<>((o1, o2) -> {
+            if ((o1.length() < o2.length() && o1.contains(o2.substring(0, o1.length())))
+                    || (o2.length() < o1.length() && o2.contains(o1.substring(0, o2.length())))) {
+                return Integer.compare(o1.length(), o2.length());
             }
+            return o2.compareTo(o1);
         });
         result.addAll(createSrtSet(incoming));
         return result;

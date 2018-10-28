@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ConvertList {
 	/**
-	 * metod converts array to list.
+	 * method converts array to list.
 	 * @param array - array.
 	 * @return list.
 	 */
@@ -28,7 +28,7 @@ public class ConvertList {
 	}
 
 	/**
-	 * metod converts list to array.
+	 * method converts list to array.
 	 * @param list - list.
 	 * @param rows - rows.
 	 * @return array[][].
@@ -36,8 +36,8 @@ public class ConvertList {
 	public static int[][] listToArray(List<Integer> list, int rows) {
 		if (!list.isEmpty()) {
 			Integer[] array = list.toArray(new Integer[list.size()]);
-			int colomn = array.length % rows == 0 ? array.length / rows : array.length / rows + 1;
-			int[][] result = new int[rows][colomn];
+			int column = array.length % rows == 0 ? array.length / rows : array.length / rows + 1;
+			int[][] result = new int[rows][column];
 			int sizeArray = 0;
 			for (int i = 0; i < result.length; i++) {
 				for (int j = 0; j < result[i].length; j++) {
@@ -55,7 +55,7 @@ public class ConvertList {
 	}
 
 	/**
-	 * metod converts list<int[]> to ArrayList<Integer>.
+	 * method converts list<int[]> to ArrayList<Integer>.
 	 * @param list - list to convert
 	 * @return ArrayList<Integer>
 	 */
@@ -69,6 +69,6 @@ public class ConvertList {
 			}
 			return result;
 		}
-		return new ArrayList<Integer>();
+		return new ArrayList<>();
 	}
 }

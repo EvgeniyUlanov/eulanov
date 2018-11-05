@@ -1,34 +1,35 @@
 <project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>ru.job4j</groupId>
-	<artifactId>eulanov</artifactId>
-	<packaging>pom</packaging>
-	<version>2.0</version>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.job4j</groupId>
+    <artifactId>eulanov</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0</version>
 
-	<name>eulanov</name>
-	<url>http://job4j.ru/</url>
-	
+    <name>eulanov</name>
+    <url>http://job4j.ru/</url>
 
-	<properties>
-	   <maven.compiler.source>1.8</maven.compiler.source>
-	   <maven.compiler.target>1.8</maven.compiler.target>
-	   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
-	<modules>
-	  <module>chapter_001</module>
-	  <module>chapter_002</module>
-      <module>chapter_003</module>
-      <module>chapter_003_2</module>
-      <module>chapter_004</module>
-      <module>chapter_007</module>
-	  <module>Task_Game</module>
-      <module>chapter_008</module>
-      <module>chapter_009</module>
-      <module>chapter_010</module>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>chapter_001</module>
+        <module>chapter_002</module>
+        <module>chapter_003</module>
+        <module>chapter_003_2</module>
+        <module>chapter_004</module>
+        <module>chapter_007</module>
+        <module>Task_Game</module>
+        <module>chapter_008</module>
+        <module>chapter_009</module>
+        <module>chapter_010</module>
+        <module>Chapter_011-Spring</module>
     </modules>
 
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -57,7 +58,7 @@
             <version>9.4.1208-jdbc42-atlassian-hosted</version>
         </dependency>
     </dependencies>
-	
+
     <build>
         <plugins>
             <plugin>
@@ -102,5 +103,5 @@
             </plugin>
         </plugins>
     </build>
-	    
+
 </project>
